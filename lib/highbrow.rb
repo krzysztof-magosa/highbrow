@@ -1,0 +1,8 @@
+require_relative 'highbrow/function/tanh.rb'
+require_relative 'highbrow/layer.rb'
+require_relative 'highbrow/neuron.rb'
+require_relative 'highbrow/connection.rb'
+require_relative 'highbrow/mlperceptron.rb'
+require_relative 'highbrow/layercollection'
+require_relative 'highbrow/inputlayer'
+require_relative 'highbrow/inputneuron'
