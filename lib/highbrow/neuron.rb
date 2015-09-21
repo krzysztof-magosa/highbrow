@@ -9,6 +9,8 @@ module Highbrow
     def initialize
       @inputs = []
       @outputs = []
+
+#      @output = 0.0 # @TODO: is it needed?
     end
 
     def inputs_sum

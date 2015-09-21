@@ -8,6 +8,7 @@ module Highbrow
     def_delegator :@layers, :count
     def_delegator :@layers, :first
     def_delegator :@layers, :last
+    def_delegator :@layers, :reverse
 
     def initialize
       @layers = []

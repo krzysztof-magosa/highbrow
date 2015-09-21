@@ -7,8 +7,14 @@ module Highbrow
       super
     end
 
+    # Input neuron just pass input to output
     def activate
-      @output = @input
+      # do nothing
+    end
+
+    # Provide input value into output
+    def output
+      @input
     end
   end
 end

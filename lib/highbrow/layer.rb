@@ -5,6 +5,8 @@ module Highbrow
   class Layer
     extend ::Forwardable
     def_delegator :@neurons, :map
+    def_delegator :@neurons, :each
+    def_delegator :@neurons, :each_with_index
     def_delegator :@neurons, :[]
 
     attr_reader :neurons

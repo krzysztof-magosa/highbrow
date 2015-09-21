@@ -3,12 +3,12 @@ module Highbrow
   class Connection
     attr_reader :source
     attr_reader :target
-    attr_reader :weight
+    attr_accessor :weight
 
     def initialize(source, target)
       @source = source
       @target = target
-      @weight = 0.5 # @TODO random number
+      @weight = -0.5 + rand
     end
 
     def value
