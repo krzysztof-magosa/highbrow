@@ -1,6 +1,3 @@
-#require 'securerandom'
-require 'distribution'
-
 module Highbrow
   # Represents connection between neurons
   class Connection
@@ -15,7 +12,9 @@ module Highbrow
     end
 
     def randomize
-      @weight = Random.rand(-0.5..0.5)
+      #@weight = Random.rand(-0.5..0.5)
+      #@weight = Random.rand(0.01..1.0)
+      @weight = ((rand 2000)/1000.0) - 1
     end
 
     def value

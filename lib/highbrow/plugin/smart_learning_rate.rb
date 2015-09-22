@@ -1,9 +1,7 @@
 module Highbrow
   module Plugin
     # Represents smart learning rate plugin
-    class SmartLearningRate
-      attr_accessor :trainer
-
+    class SmartLearningRate < Base
       def initialize
         @ready = false
         @last_weights = {}
@@ -28,12 +26,12 @@ module Highbrow
           if ratio > 1.04
             adjust_rate 0.7
 #
-#            puts 'ROLLBACK!'
-#            @trainer.network.inputs.each do |conn|
-#              conn.weight = @last_weights[conn]
-#            end#
+            #puts 'ROLLBACK!'
+            #@trainer.network.inputs.each do |conn|
+            #  conn.weight = @last_weights[conn]
+            #end
 #
-#            @trainer.rollback
+            #@trainer.rollback
           elsif ratio < 1.0
             adjust_rate 1.05
           end

@@ -11,7 +11,7 @@ module Highbrow
 
     attr_reader :neurons
 
-    def initialize(count, function = Function::Tanh.new, bias = false)
+    def initialize(count, function = Function::Tanh.new, bias = true)
       @neurons = []
       count.times do
         item = Highbrow::Neuron::Standard.new
