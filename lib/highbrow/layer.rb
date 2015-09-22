@@ -14,10 +14,12 @@ module Highbrow
     def initialize(count, function = Function::Tanh.new, bias = false)
       @neurons = []
       count.times do
-        item = Neuron.new
+        item = Highbrow::Neuron::Standard.new
         item.function = function
         @neurons.push item
       end
+
+      @neurons.push Highbrow::Neuron::Bias.new if bias
     end
 
     def activate
@@ -27,6 +29,7 @@ module Highbrow
     def self.interconnect(source, target)
       source.neurons.each do |sn|
         target.neurons.each do |tn|
+          next if tn.type == :bias
           Connection.interconnect sn, tn
         end
       end

@@ -1,3 +1,6 @@
+#require 'securerandom'
+require 'distribution'
+
 module Highbrow
   # Represents connection between neurons
   class Connection
@@ -8,7 +11,11 @@ module Highbrow
     def initialize(source, target)
       @source = source
       @target = target
-      @weight = -0.5 + rand
+      randomize
+    end
+
+    def randomize
+      @weight = Random.rand(-0.5..0.5)
     end
 
     def value
@@ -22,7 +29,7 @@ module Highbrow
     def self.interconnect(source, target)
       connection = new source, target
       source.outputs.push connection
-      target.inputs.push connection
+      target.inputs.push connection if target.respond_to? :inputs=
 
       connection
     end

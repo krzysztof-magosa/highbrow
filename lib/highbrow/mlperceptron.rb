@@ -32,5 +32,19 @@ module Highbrow
         end
       end
     end
+
+    def inputs
+      Enumerator.new do |x|
+        @layers.each do |layer|
+          layer.each do |neuron|
+            next unless neuron.respond_to? :inputs
+
+            neuron.inputs.each do |conn|
+              x << conn
+            end
+          end
+        end
+      end
+    end
   end
 end

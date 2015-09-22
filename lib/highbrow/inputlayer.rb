@@ -4,8 +4,10 @@ module Highbrow
     def initialize(count)
       @neurons = []
       count.times do
-        @neurons.push InputNeuron.new
+        @neurons.push Highbrow::Neuron::Input.new
       end
+
+      @neurons.push Highbrow::Neuron::Bias.new
     end
   end
 end

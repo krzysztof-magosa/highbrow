@@ -1,19 +1,18 @@
 module Highbrow
   class Trainer
+    attr_reader :network
     attr_accessor :training_set
     attr_accessor :learning_rate
+    attr_accessor :momentum
     attr_reader :last_epoch_error
 
     def initialize(network)
       @network = network
       @plugins = []
       @training_set = []
-      @training_data = {}
       @goal = 0.05
-      @momentum = 0.95
-      @network.neurons.each do |neuron|
-        @training_data[neuron] = OpenStruct.new(gradient: 0.0, correction: 0.0)
-      end
+      @momentum = 0.3
+      @learning_rate = 0.3
     end
 
     # Calculates squared error for specified traing pair
@@ -48,12 +47,18 @@ module Highbrow
     def train
       squared_epoch_error
 
+      nr = 0
       while @last_epoch_error > @goal
         @plugins.each(&:pre_epoch)
         epoch
         squared_epoch_error
         @plugins.each(&:post_epoch)
+
+        #puts @last_epoch_error
+        nr += 1
       end
+
+      puts nr
     end
 
     def epoch
