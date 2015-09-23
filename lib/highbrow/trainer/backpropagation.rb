@@ -30,9 +30,8 @@ module Highbrow
 
       def propagate(expected)
         @network.layers.reverse[0..-2].each do |layer|
-          layer.each_with_index do |neuron, index|
+          layer.neurons.each_with_index do |neuron, index|
             next if neuron.bias?
-#            next if neuron.function.nil?
 
             if layer == @network.layers.last
               # output layer

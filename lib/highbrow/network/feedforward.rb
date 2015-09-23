@@ -8,14 +8,18 @@ module Highbrow
         @layers = []
       end
 
+      # Activate all neurons in network.
+      # Forward over all layers.
       def activate
         @layers.each(&:activate)
       end
 
+      # Returns values from output layer
       def output
-        @layers.last.map(&:output)
+        @layers.last.neurons.map(&:output)
       end
 
+      # Sets input for network
       def input=(data)
         layer = @layers.first
 
@@ -27,11 +31,16 @@ module Highbrow
         end
       end
 
+      def add_layer(layer)
+        @layers.push layer
+        self
+      end
+
       # Returns enumerator of all neurons in network
       def neurons
         Enumerator.new do |enum|
           @layers.each do |layer|
-            layer.each do |neuron|
+            layer.neurons.each do |neuron|
               enum << neuron
             end
           end
