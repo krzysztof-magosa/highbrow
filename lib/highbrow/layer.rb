@@ -16,7 +16,7 @@ module Highbrow
       @neuron_class = Highbrow::Neuron unless @neuron_class
 
       create_neurons neurons, function
-      create_bias if bias
+      @neurons.push Highbrow::Neuron.new(bias: true) if bias
     end
 
     def create_neurons(count, function)
@@ -29,16 +29,8 @@ module Highbrow
       end
     end
 
-    def create_bias
-      item = Highbrow::Neuron.new
-      item.function = nil
-      item.input = 1.0
-      item.bias = true
-      @neurons.push item
-    end
-
     def bias?
-      @neurons.any? { |n| n.type == :bias }
+      @neurons.any? { |n| n.bias? }
     end
 
     def activate
@@ -48,7 +40,7 @@ module Highbrow
     def self.interconnect(source, target)
       source.neurons.each do |sn|
         target.neurons.each do |tn|
-          next if tn.type == :bias
+          next if tn.bias?
           Connection.interconnect sn, tn
         end
       end

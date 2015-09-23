@@ -4,19 +4,18 @@ module Highbrow
     attr_accessor :input
     attr_accessor :inputs
     attr_accessor :bias
-
+    alias_method :bias?, :bias
     attr_accessor :function
     attr_accessor :outputs
     attr_reader :output
 
-    def initialize
+    def initialize(bias: false)
       @inputs = []
       @outputs = []
       @output = 0.0
-    end
 
-    def type
-      @bias ? :bias : :standard
+      @bias = bias
+      @input = 1.0 if bias
     end
 
     def inputs_sum
