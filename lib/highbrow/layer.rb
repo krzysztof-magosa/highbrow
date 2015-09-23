@@ -28,7 +28,7 @@ module Highbrow
     end
 
     def bias?
-      @neurons.any? { |n| n.bias? }
+      @neurons.any?(&:bias?)
     end
 
     def activate

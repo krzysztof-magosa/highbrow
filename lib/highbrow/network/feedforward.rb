@@ -17,19 +17,22 @@ module Highbrow
       end
 
       def input=(data)
-        data.each_with_index do |value, index|
-          @layers.first[index].input = value
-        end
+        layer = @layers.first
 
-        self
+        count = layer.neurons.count - (layer.bias? ? 1 : 0)
+        fail 'Mismatch between input data and neurons' if count != data.count
+
+        data.each_with_index do |value, index|
+          layer.neurons[index].input = value
+        end
       end
 
       # Returns enumerator of all neurons in network
       def neurons
-        Enumerator.new do |x|
+        Enumerator.new do |enum|
           @layers.each do |layer|
             layer.each do |neuron|
-              x << neuron
+              enum << neuron
             end
           end
         end
@@ -37,14 +40,10 @@ module Highbrow
 
       # Returns enumerator of all inputs in network
       def inputs
-        Enumerator.new do |x|
-          @layers.each do |layer|
-            layer.each do |neuron|
-              next unless neuron.respond_to? :inputs
-
-              neuron.inputs.each do |conn|
-                x << conn
-              end
+        Enumerator.new do |enum|
+          neurons.each do |neuron|
+            neuron.inputs.each do |conn|
+              enum << conn
             end
           end
         end

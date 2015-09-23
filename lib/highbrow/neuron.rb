@@ -19,13 +19,15 @@ module Highbrow
       @function = function
     end
 
-    def inputs_sum
-      @inputs.map(&:weighed_value).reduce(:+)
-    end
-
     def activate
       value = @input.nil? ? inputs_sum : @input
       @output = @function.nil? ? value : @function.primary(value)
+    end
+
+    private
+
+    def inputs_sum
+      @inputs.map(&:weighed_value).reduce(:+)
     end
   end
 end
