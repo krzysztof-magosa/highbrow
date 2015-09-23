@@ -1,14 +1,19 @@
 module Highbrow
   module Neuron
     # Represents standard neuron
-    class Standard < Base
+    class Standard
       attr_accessor :input
       attr_accessor :inputs
       attr_accessor :bias
 
+      attr_accessor :function
+      attr_accessor :outputs
+      attr_reader :output
+
       def initialize
-        super
         @inputs = []
+        @outputs = []
+        @output = 0.0
       end
 
       def type
