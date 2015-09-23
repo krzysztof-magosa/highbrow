@@ -1,10 +1,10 @@
 require_relative '../lib/highbrow.rb'
 
 xor_truth = [
-  [[-0.9, -0.9], [-0.9]],
-  [[0.9, -0.9], [0.9]],
-  [[-0.9, 0.9], [0.9]],
-  [[0.9, 0.9], [-0.9]]
+  [[-1, -1], [-1]],
+  [[1, -1], [1]],
+  [[-1, 1], [1]],
+  [[1, 1], [-1]]
 ]
 
 #xor_truth = [
@@ -24,13 +24,12 @@ bp = Highbrow::Trainer::BackPropagation.new net
 bp.training_set.push(*xor_truth)
 bp.momentum = 0.1
 bp.learning_rate = 0.25
-bp.goal = 0.01
-# bp.learning_rate = 0.9
+bp.goal = 0.05
 bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 #bp.plug(Highbrow::Plugin::SmartMomentum.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 
-#bp.batch_mode = true
+bp.batch_mode = true
 bp.train
 
 #bp.batch_mode = true
