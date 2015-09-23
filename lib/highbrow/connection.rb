@@ -28,7 +28,7 @@ module Highbrow
     def self.interconnect(source, target)
       connection = new source, target
       source.outputs.push connection
-      target.inputs.push connection if target.respond_to? :inputs=
+      target.inputs.push connection unless target.bias?
 
       connection
     end

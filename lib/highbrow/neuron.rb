@@ -2,7 +2,7 @@ module Highbrow
   # Represents standard neuron
   class Neuron
     attr_accessor :input
-    attr_accessor :inputs
+    attr_reader :inputs
     attr_reader :bias
     alias_method :bias?, :bias
     attr_accessor :function
