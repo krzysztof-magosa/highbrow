@@ -9,7 +9,7 @@ xor_truth = [
 
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
-net.layers.push Highbrow::Layer.new(neurons: 2, bias: true)
+net.layers.push Highbrow::Layer.new(neurons: 5, bias: true)
 net.layers.push Highbrow::Layer.new(neurons: 1)
 net.finalize!
 
