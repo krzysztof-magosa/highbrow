@@ -17,7 +17,7 @@ bp = Highbrow::Trainer::BackPropagation.new net
 bp.training_set.push(*xor_truth)
 bp.momentum = 0.2
 bp.learning_rate = 0.25
-bp.goal = 0.05
+bp.goal = 0.01
 bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 

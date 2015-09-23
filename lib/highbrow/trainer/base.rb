@@ -41,7 +41,8 @@ module Highbrow
 
         #@last_epoch_error = Math.sqrt(error / @training_set.count)
         # MSE https://github.com/encog/encog-java-core/blob/master/src/main/java/org/encog/mathutil/error/ErrorCalculation.java
-        @last_epoch_error = error / @network.layers.last.neurons.count
+        size = @network.layers.last.neurons.count * @training_set.count
+        @last_epoch_error = error / size
       end
 
       def plug(plugin)
