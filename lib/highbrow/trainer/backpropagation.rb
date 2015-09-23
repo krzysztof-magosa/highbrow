@@ -32,6 +32,7 @@ module Highbrow
         @network.layers.reverse[0..-2].each do |layer|
           layer.each_with_index do |neuron, index|
             next if neuron.type == :bias
+            next if neuron.function.nil?
 
             if layer == @network.layers.last
               # output layer

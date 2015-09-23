@@ -2,7 +2,9 @@ module Highbrow
   module Neuron
     # Represents standard neuron
     class Standard < Base
+      attr_accessor :input
       attr_accessor :inputs
+      attr_accessor :bias
 
       def initialize
         super
@@ -10,7 +12,7 @@ module Highbrow
       end
 
       def type
-        :standard
+        @bias ? :bias : :standard
       end
 
       def inputs_sum
@@ -18,7 +20,8 @@ module Highbrow
       end
 
       def activate
-        @output = @function.primary inputs_sum
+        value = @input.nil? ? inputs_sum : @input
+        @output = @function.nil? ? value : @function.primary(value)
       end
     end
   end

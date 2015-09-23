@@ -11,27 +11,30 @@ module Highbrow
 
     attr_reader :neurons
 
-    def initialize(count, function = Function::Tanh.new, bias = true)
+    def initialize(neurons:, bias: false, function: Function::Tanh.new)
       @neurons = []
+      @neuron_class = Highbrow::Neuron::Standard unless @neuron_class
+
+      create_neurons neurons, function
+      create_bias if bias
+    end
+
+    def create_neurons(count, function)
+      fail 'Layer cannot be empty' if count == 0
+
       count.times do
-        item = Highbrow::Neuron::Standard.new
+        item = @neuron_class.new
         item.function = function
         @neurons.push item
       end
-
-      @neurons.push Highbrow::Neuron::Bias.new if bias
     end
 
-    def with_bias(enabled)
-      if enabled
-        return false if bias?
-        @neurons.push Highbrow::Neuron::Bias.new
-      else
-        return false unless bias?
-        @neurons.delete_if! { |n| n.type == :bias }
-      end
-
-      self
+    def create_bias
+      item = Highbrow::Neuron::Standard.new
+      item.function = nil
+      item.input = 1.0
+      item.bias = true
+      @neurons.push item
     end
 
     def bias?

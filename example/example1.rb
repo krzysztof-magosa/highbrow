@@ -15,12 +15,9 @@ xor_truth = [
 #]
 
 net = Highbrow::Network::FeedForward.new
-net.layers.push Highbrow::InputLayer.new(2)
-net.layers.push Highbrow::Layer.new(5, Highbrow::Function::ReLU.new, false)
-net.layers.push Highbrow::Layer.new(1, Highbrow::Function::Tanh.new, false)
-
-net.layers[1].with_bias(true)
-
+net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
+net.layers.push Highbrow::Layer.new(neurons: 5, bias: true)
+net.layers.push Highbrow::Layer.new(neurons: 1)
 net.finalize!
 
 bp = Highbrow::Trainer::BackPropagation.new net
