@@ -28,44 +28,49 @@ module Highbrow
         @batch_corrections = Hash.new(0.0)
       end
 
+      def propagate_output(neuron, ideal)
+        derivative = neuron.function.derivative(neuron.output)
+        error = ideal - neuron.output
+        @training_data[neuron].gradient = error * derivative
+      end
+
+      def propagate_hidden(neuron)
+        product_sum = 0.0
+
+        neuron.outputs.each do |conn|
+          product_sum += @training_data[conn.target].gradient * conn.weight
+        end
+
+        @training_data[neuron].gradient = neuron.function.derivative(neuron.output) * product_sum
+      end
+
+      def update_weights(neuron)
+        training_data = @training_data[neuron]
+
+        neuron.inputs.each do |conn|
+          correction = @learning_rate * conn.value * training_data.gradient
+          correction += @momentum * training_data.correction
+
+          if @batch_mode
+            @batch_corrections[conn] += correction
+          else
+            conn.weight += correction
+          end
+
+          training_data.correction = correction
+        end
+      end
+
       def propagate(expected)
         @network.layers.reverse[0..-2].each do |layer|
-          layer.neurons.each_with_index do |neuron, index|
-            next if neuron.bias?
-
+          layer.neurons.reject(&:bias?).each_with_index do |neuron, index|
             if layer == @network.layers.last
-              # output layer
-              derivative = neuron.function.derivative(neuron.output)
-
-              @training_data[neuron].gradient = (expected[index] - neuron.output) * derivative
+              propagate_output neuron, expected[index]
             else
-              # other layer - except input
-              product_sum = 0.0
-
-              neuron.outputs.each do |conn|
-                product_sum += @training_data[conn.target].gradient * conn.weight
-              end
-
-              @training_data[neuron].gradient = neuron.function.derivative(neuron.output) * product_sum
-#              puts "i=#{neuron.inputs_sum}"
-#              puts "o=#{neuron.output}"
-              ##@training_data[neuron].gradient = neuron.function.derivative(neuron.inputs_sum) * product_sum
+              propagate_hidden neuron
             end
 
-            neuron.inputs.each do |conn|
-              correction = @learning_rate * conn.value * @training_data[neuron].gradient
-
-              correction += (@momentum * @training_data[neuron].correction)
-              # conn.weight += (correction + (@momentum * @training_data[neuron].correction))
-
-              if @batch_mode
-                @batch_corrections[conn] += correction
-              else
-                conn.weight += correction
-              end
-
-              @training_data[neuron].correction = correction
-            end
+            update_weights neuron
           end
         end
       end
