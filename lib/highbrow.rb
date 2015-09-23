@@ -15,5 +15,4 @@ require_relative 'highbrow/plugin/smart_learning_rate'
 require_relative 'highbrow/plugin/smartmomentum'
 require_relative 'highbrow/plugin/monitor'
 
-require_relative 'highbrow/neuron/base'
 require_relative 'highbrow/neuron/standard'
