@@ -22,6 +22,22 @@ module Highbrow
       @neurons.push Highbrow::Neuron::Bias.new if bias
     end
 
+    def with_bias(enabled)
+      if enabled
+        return false if bias?
+        @neurons.push Highbrow::Neuron::Bias.new
+      else
+        return false unless bias?
+        @neurons.delete_if! { |n| n.type == :bias }
+      end
+
+      self
+    end
+
+    def bias?
+      @neurons.any? { |n| n.type == :bias }
+    end
+
     def activate
       @neurons.each(&:activate)
     end

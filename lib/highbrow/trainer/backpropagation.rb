@@ -1,21 +1,31 @@
 require 'ostruct'
 
 module Highbrow
-  # Represents back propagation teacher
   module Trainer
     # Represents back propagation trainer
     class BackPropagation < Base
+      # Represents training data used by backpropagation
+      class TrainingDataItem
+        attr_accessor :gradient
+        attr_accessor :correction
+
+        def initialize
+          @gradient = 0.0
+          @correction = 0.0
+        end
+      end
+
       attr_accessor :batch_mode
 
       def initialize(network)
         super
 
         @training_data = {}
-        @network.neurons.each do |neuron|
-          @training_data[neuron] = OpenStruct.new(gradient: 0.0, correction: 0.0)
+        @training_data.default_proc = proc do |hash, key|
+          hash[key] = TrainingDataItem.new
         end
 
-        @corrections = Hash.new(0.0)
+        @batch_corrections = Hash.new(0.0)
       end
 
       def propagate(expected)
@@ -49,7 +59,7 @@ module Highbrow
               # conn.weight += (correction + (@momentum * @training_data[neuron].correction))
 
               if @batch_mode
-                @corrections[conn] += correction
+                @batch_corrections[conn] += correction
               else
                 conn.weight += correction
               end
@@ -78,18 +88,22 @@ module Highbrow
       def epoch
         # backup
 
-        @corrections.clear if @batch_mode
         @training_set.shuffle.each do |input, expected|
           @network.input = input
           @network.activate
           propagate expected
         end
 
-        if @batch_mode
-          @corrections.each do |k, v|
-            k.weight += v
-          end
+        apply_batch_corrections
+      end
+
+      def apply_batch_corrections
+        return false unless @batch_mode
+        @batch_corrections.each do |k, v|
+          k.weight += v
         end
+
+        @batch_corrections.clear
       end
     end
   end

@@ -1,11 +1,11 @@
 module Highbrow
   module Network
-    # Represents Multi Layer Perceptron
-    class MLPerceptron
+    # Represents feed forward network
+    class FeedForward
       attr_reader :layers
 
       def initialize
-        @layers = LayerCollection.new
+        @layers = []
       end
 
       def activate
@@ -45,6 +45,15 @@ module Highbrow
               end
             end
           end
+        end
+      end
+
+      def finalize!
+        fail 'Network must have at least 2 layers.' if @layers.count < 2
+
+        # 1,2,3 => 1->2, 2->3
+        @layers[0...-1].zip(@layers[1..-1]).each do |pair|
+          Layer.interconnect pair[0], pair[1]
         end
       end
     end
