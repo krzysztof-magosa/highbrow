@@ -13,7 +13,7 @@ module Highbrow
 
     def initialize(neurons:, bias: false, function: Function::Tanh.new)
       @neurons = []
-      @neuron_class = Highbrow::Neuron::Standard unless @neuron_class
+      @neuron_class = Highbrow::Neuron unless @neuron_class
 
       create_neurons neurons, function
       create_bias if bias
@@ -30,7 +30,7 @@ module Highbrow
     end
 
     def create_bias
-      item = Highbrow::Neuron::Standard.new
+      item = Highbrow::Neuron.new
       item.function = nil
       item.input = 1.0
       item.bias = true
