@@ -3,10 +3,10 @@ module Highbrow
   class Neuron
     attr_accessor :input
     attr_accessor :inputs
-    attr_accessor :bias
+    attr_reader :bias
     alias_method :bias?, :bias
     attr_accessor :function
-    attr_accessor :outputs
+    attr_reader :outputs
     attr_reader :output
 
     def initialize(bias: false)
