@@ -4,7 +4,6 @@ require_relative 'highbrow/function/relu'
 
 require_relative 'highbrow/layer'
 require_relative 'highbrow/connection'
-require_relative 'highbrow/inputlayer'
 
 require_relative 'highbrow/network/feedforward'
 
