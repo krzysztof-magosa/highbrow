@@ -13,8 +13,6 @@ module Highbrow
 
     def initialize(neurons:, bias: false, function: Function::Tanh.new)
       @neurons = []
-      @neuron_class = Highbrow::Neuron unless @neuron_class
-
       create_neurons neurons, function
       @neurons.push Highbrow::Neuron.new(bias: true) if bias
     end
@@ -23,7 +21,7 @@ module Highbrow
       fail 'Layer cannot be empty' if count == 0
 
       count.times do
-        item = @neuron_class.new
+        item = Highbrow::Neuron.new
         item.function = function
         @neurons.push item
       end
