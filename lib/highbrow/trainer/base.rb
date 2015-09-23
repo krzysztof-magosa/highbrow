@@ -26,7 +26,7 @@ module Highbrow
         error = 0.0
         @network.output.zip(training_pair[1]).each do |a, e|
           # @TODO check that
-          error += (a - e)**2
+          error += (e - a)**2
         end
 
         error
@@ -39,7 +39,9 @@ module Highbrow
           error += squared_error pair
         end
 
-        @last_epoch_error = Math.sqrt(error / @training_set.count)
+        #@last_epoch_error = Math.sqrt(error / @training_set.count)
+        # MSE https://github.com/encog/encog-java-core/blob/master/src/main/java/org/encog/mathutil/error/ErrorCalculation.java
+        @last_epoch_error = error / @network.layers.last.neurons.count
       end
 
       def plug(plugin)
