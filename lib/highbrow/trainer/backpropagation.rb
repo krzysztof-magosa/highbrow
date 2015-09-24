@@ -104,6 +104,7 @@ module Highbrow
 
       def apply_batch_corrections
         return false unless @batch_mode
+
         @batch_corrections.each do |k, v|
           k.weight += v
         end

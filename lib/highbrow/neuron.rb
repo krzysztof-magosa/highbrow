@@ -27,7 +27,14 @@ module Highbrow
     private
 
     def inputs_sum
-      @inputs.map(&:weighed_value).reduce(:+)
+      # @inputs.map(&:weighed_value).reduce(:+)
+      sum = 0.0
+
+      @inputs.each do |item|
+        sum += item.weighed_value
+      end
+
+      sum
     end
   end
 end

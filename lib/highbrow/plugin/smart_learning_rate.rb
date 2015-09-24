@@ -2,38 +2,35 @@ module Highbrow
   module Plugin
     # Represents smart learning rate plugin
     class SmartLearningRate < Base
-      def initialize
+      def initialize(min_rate: 0.00001, max_rate: 1.0, rate_inc: 1.05, rate_dec: 0.7, max_perf_inc: 1.04, min_perf_inc: 1.0)
         @ready = false
-        @last_weights = {}
+
+        @min_rate = min_rate
+        @max_rate = max_rate
+
+        @rate_inc = rate_inc
+        @rate_dec = rate_dec
+
+        @max_perf_inc = max_perf_inc
+        @min_perf_inc = min_perf_inc
       end
 
       def init
-        @trainer.learning_rate = 1.0 / @trainer.training_set.count
+        @trainer.learning_rate = @max_rate / @trainer.training_set.count
       end
 
       def pre_epoch
         @last_error = @trainer.last_epoch_error
-
-        @last_weights = {}
-        @trainer.network.inputs.each do |conn|
-          @last_weights[conn] = conn.weight
-        end
       end
 
       def post_epoch
         if @ready
           ratio = @trainer.last_epoch_error / @last_error
-          if ratio > 1.04
-            adjust_rate 0.7
-#
-            #puts 'ROLLBACK!'
-            #@trainer.network.inputs.each do |conn|
-            #  conn.weight = @last_weights[conn]
-            #end
-#
-            #@trainer.rollback
-          elsif ratio < 1.0
-            adjust_rate 1.05
+
+          if ratio > @max_perf_inc
+            adjust_rate @rate_dec
+          elsif ratio < @min_perf_inc
+            adjust_rate @rate_inc
           end
         end
 
@@ -44,9 +41,14 @@ module Highbrow
 
       def adjust_rate(ratio)
         rate = @trainer.learning_rate * ratio
+        #return MAX_RATE if rate > MAX_RATE
+        #return MIN_RATE if rate < MIN_RATE
+        #rate
 
-        rate = 1.0 if rate > 1.0
-        rate = 0.01 if rate <= 0.0
+        #rate = [MAX_RATE, rate].min
+        #rate = [MIN_RATE, rate].max
+        rate = @max_rate if rate > @max_rate
+        rate = @min_rate if rate < @min_rate
 
         @trainer.learning_rate = rate
       end

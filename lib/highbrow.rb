@@ -1,6 +1,7 @@
 require_relative 'highbrow/function/tanh'
 require_relative 'highbrow/function/sigmoid'
 require_relative 'highbrow/function/relu'
+require_relative 'highbrow/function/softplus'
 
 require_relative 'highbrow/layer'
 require_relative 'highbrow/connection'

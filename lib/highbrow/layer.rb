@@ -23,7 +23,8 @@ module Highbrow
     end
 
     def bias?
-      @neurons.any?(&:bias?)
+      # bias neuron is usually on the end
+      @neurons.reverse.any?(&:bias?)
     end
 
     def activate
