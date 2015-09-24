@@ -17,7 +17,7 @@ xor_truth = [
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
 
-net.layers.push Highbrow::Layer.new(neurons: 5, bias: true, function: Highbrow::Function::Sigmoid.new)
+net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: Highbrow::Function::Sigmoid.new)
 net.layers.push Highbrow::Layer.new(neurons: 1, function: Highbrow::Function::Sigmoid.new)
 
 #net.layers.push Highbrow::Layer.new(neurons: 5, bias: true)
@@ -29,8 +29,9 @@ bp = Highbrow::Trainer::BackPropagation.new net
 bp.training_set.push(*xor_truth)
 bp.momentum = 0.7
 bp.learning_rate = 0.25
-bp.goal = 0.00001
-bp.plug(Highbrow::Plugin::SmartLearningRate.new(max_rate: 0.7))
+bp.goal = 0.01
+
+bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 
 #bp.batch_mode = true
@@ -47,6 +48,6 @@ net.input = [1.0, 1.0]
 net.activate
 puts net.output
 
-net.input = [-1.0, 1.0]
+net.input = [0.0, 1.0]
 net.activate
 puts net.output

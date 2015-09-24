@@ -2,7 +2,7 @@ module Highbrow
   module Function
     # Represents softplus function
     # https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
-    class Softplus
+    class Softplus < Base
       E = 2.71828183
 
       def primary(input)
@@ -12,18 +12,6 @@ module Highbrow
 
       def derivative(output)
         1.0 / (1.0 + E**-output)
-      end
-
-      def upper_limit
-        1.0
-      end
-
-      def lower_limit
-        0.0
-      end
-
-      def flat_spot?
-        true
       end
     end
   end

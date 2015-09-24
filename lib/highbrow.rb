@@ -1,3 +1,4 @@
+require_relative 'highbrow/function/base'
 require_relative 'highbrow/function/tanh'
 require_relative 'highbrow/function/sigmoid'
 require_relative 'highbrow/function/relu'
