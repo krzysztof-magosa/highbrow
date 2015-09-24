@@ -42,7 +42,7 @@ bp.training_set.push(*training_set)
 bp.momentum = 0.7
 bp.learning_rate = 0.3
 bp.goal = 0.025
-bp.plug(Highbrow::Plugin::SmartLearningRate.new(min_rate: 0.1))
+bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 
 # bp.batch_mode = true
