@@ -52,6 +52,8 @@ module Highbrow
       end
 
       def train
+        prepare
+
         squared_epoch_error
         @plugins.each(&:pre_train)
 
@@ -67,6 +69,9 @@ module Highbrow
 
       def epoch
         fail 'This method must be implemented in child class.'
+      end
+
+      def prepare
       end
     end
   end

@@ -28,6 +28,10 @@ module Highbrow
         @batch_corrections = Hash.new(0.0)
       end
 
+      def prepare
+        #@back_layers = @network.layers[1..-1].reverse
+      end
+
       def propagate_output(neuron, ideal)
         derivative = neuron.function.derivative(neuron.output)
         error = ideal - neuron.output
@@ -62,8 +66,11 @@ module Highbrow
       end
 
       def propagate(expected)
-        @network.layers.reverse[0..-2].each do |layer|
-          layer.neurons.reject(&:bias?).each_with_index do |neuron, index|
+        @network.layers[1..-1].reverse_each do |layer|
+        # @back_layers.each do |layer|
+          layer.neurons.each_with_index do |neuron, index|
+            next if neuron.bias?
+
             if layer == @network.layers.last
               propagate_output neuron, expected[index]
             else
@@ -75,24 +82,7 @@ module Highbrow
         end
       end
 
-      def backup
-        # fail
-        @training_data_backup = {}
-        @training_data.each do |key, item|
-          @training_data_backup[key] = Marshal.dump(item)
-        end
-      end
-
-      def rollback
-        # fail
-        @training_data_backup.each do |key, item|
-          @training_data[key] = Marshal.load(item)
-        end
-      end
-
       def epoch
-        # backup
-
         @training_set.shuffle.each do |input, expected|
           @network.input = input
           @network.activate
