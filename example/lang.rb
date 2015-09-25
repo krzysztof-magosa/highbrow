@@ -1,7 +1,8 @@
+# coding: utf-8
 require_relative '../lib/highbrow.rb'
 
 langs = %w(en fr it pl)
-$alphabet = ('a'..'z').to_a + [' ']
+$alphabet = ('a'..'z').to_a + [' ', '.', ',', "'", 'ą', 'ć', 'ę', 'ó', 'ł', 'ś', 'ż', 'ź']
 training_set = []
 dir = File.dirname __FILE__
 
@@ -31,25 +32,31 @@ langs.each_with_index do |lang, index|
   end
 end
 
-net = Highbrow::Network::FeedForward.new
-net.layers.push Highbrow::Layer.new(neurons: $alphabet.count, bias: true, function: nil)
-net.layers.push Highbrow::Layer.new(neurons: 25, bias: true, function: Highbrow::Function::Softplus.new)
-net.layers.push Highbrow::Layer.new(neurons: langs.count, function: Highbrow::Function::Softplus.new)
-net.finalize!
+if File.exists? '/tmp/lang.net'
+  net = Highbrow::Network::FeedForward.load '/tmp/lang.net'
+else
+  net = Highbrow::Network::FeedForward.new
+  net.layers.push Highbrow::Layer.new(neurons: $alphabet.count, bias: true, function: nil)
+  net.layers.push Highbrow::Layer.new(neurons: 75, bias: true, function: Highbrow::Function::Sigmoid.new)
+  net.layers.push Highbrow::Layer.new(neurons: langs.count, function: Highbrow::Function::Sigmoid.new)
+  net.finalize!
+end
 
 bp = Highbrow::Trainer::BackPropagation.new net
 bp.training_set.push(*training_set)
 bp.momentum = 0.7
 bp.learning_rate = 0.3
-bp.goal = 0.025
+bp.goal = 0.05
 bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 
 # bp.batch_mode = true
 bp.train
 
+net.save '/tmp/lang.net'
 
-pl_freq = calc_freq File.read("#{dir}/tests/pl.txt")
+#pl_freq = calc_freq File.read("#{dir}/tests/pl.txt")
+pl_freq = calc_freq "I'm in love with you"
 net.input = pl_freq
 net.activate
 puts net.output.inspect

@@ -69,6 +69,16 @@ module Highbrow
           Layer.interconnect pair[0], pair[1]
         end
       end
+
+      def self.load(path)
+        data = File.read path
+        Marshal.load(data)
+      end
+
+      def save(path)
+        data = Marshal.dump self
+        File.write path, data
+      end
     end
   end
 end

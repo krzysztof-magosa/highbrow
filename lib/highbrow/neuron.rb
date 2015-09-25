@@ -1,6 +1,9 @@
 module Highbrow
   # Represents standard neuron
   class Neuron
+    @@serial = 1
+
+    attr_reader :serial
     attr_accessor :input
     attr_reader :inputs
     attr_reader :bias
@@ -18,6 +21,9 @@ module Highbrow
       # @input = 0.5 + (rand(1000) / 2000.0) if bias
       @input = 1.0 if bias
       @function = function
+
+      @serial = @@serial
+      @@serial += 1
     end
 
     def activate
@@ -36,6 +42,13 @@ module Highbrow
       end
 
       sum
+    end
+
+    def io_save
+      {
+        serial: @serial,
+        bias: @bias,
+      }
     end
   end
 end

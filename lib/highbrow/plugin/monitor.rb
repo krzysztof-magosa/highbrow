@@ -21,7 +21,7 @@ module Highbrow
       end
 
       def post_train
-        show if @last_show != @iteration
+        show if @last_show != @iteration && @iteration > 0
       end
 
       private

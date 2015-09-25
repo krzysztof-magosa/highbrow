@@ -14,6 +14,9 @@ xor_truth = [
   [[1, 1], [0]]
 ]
 
+net = Highbrow::Network::FeedForward.load '/tmp/net.data'
+
+if false
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
 
@@ -36,6 +39,12 @@ bp.plug(Highbrow::Plugin::Monitor.new)
 
 # bp.batch_mode = true
 bp.train
+
+end
+
+#Highbrow::IO::Network.save net, '/tmp/knowledge.json'
+
+#File.write '/tmp/net.data', Marshal.dump(net)
 
 # bp.batch_mode = true
 # bp.goal = 0.01
