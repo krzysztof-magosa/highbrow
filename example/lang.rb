@@ -32,12 +32,13 @@ langs.each_with_index do |lang, index|
   end
 end
 
+require 'benchmark'
 if File.exists? '/tmp/lang.net'
   net = Highbrow::Network::FeedForward.load '/tmp/lang.net'
 else
   net = Highbrow::Network::FeedForward.new
   net.layers.push Highbrow::Layer.new(neurons: $alphabet.count, bias: true, function: nil)
-  net.layers.push Highbrow::Layer.new(neurons: 75, bias: true, function: Highbrow::Function::Sigmoid.new)
+  net.layers.push Highbrow::Layer.new(neurons: 35, bias: true, function: Highbrow::Function::Sigmoid.new)
   net.layers.push Highbrow::Layer.new(neurons: langs.count, function: Highbrow::Function::Sigmoid.new)
   net.finalize!
 end
@@ -60,4 +61,3 @@ pl_freq = calc_freq "I'm in love with you"
 net.input = pl_freq
 net.activate
 puts net.output.inspect
-

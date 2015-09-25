@@ -9,6 +9,11 @@ module Highbrow
       def derivative(output)
         fail 'Subclass must implement this method.'
       end
+
+      def self.from_parameters(parameters)
+        instance = allocate
+        instance
+      end
     end
   end
 end

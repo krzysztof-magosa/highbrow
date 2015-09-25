@@ -25,6 +25,20 @@ module Highbrow
       value * @weight
     end
 
+    def parameters
+      {
+        source: @source,
+        target: @target,
+        weight: @weight
+      }
+    end
+
+    def self.from_parameters(parameters)
+      instance = interconnect parameters[:source], parameters[:target]
+      instance.weight = parameters[:weight]
+      instance
+    end
+
     def self.interconnect(source, target)
       connection = new source, target
       source.outputs.push connection

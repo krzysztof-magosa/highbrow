@@ -12,9 +12,11 @@ module Highbrow
       @neurons.push Highbrow::Neuron.new(bias: true) if bias
     end
 
-    def create_neurons(count, function)
-      fail 'Layer cannot be empty' if count == 0
+    def self.from_parameters(_parameters)
+      new(neurons: 0, bias: false, function: nil)
+    end
 
+    def create_neurons(count, function)
       count.times do
         item = Highbrow::Neuron.new
         item.function = function
