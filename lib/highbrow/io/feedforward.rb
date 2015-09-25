@@ -78,6 +78,47 @@ module Highbrow
 
         File.write path, result.to_yaml
       end
+
+      def self.load(path)
+        content = File.read(path)
+        yaml = YAML.load(content)
+
+        fail if yaml[:serial] != 1
+        fail if yaml[:class] != name
+
+        net = Object.const_get(yaml[:class]).new # from_parameters?
+
+        functions = {}
+        yaml[:functions].each do |id, item|
+          next if item[:class] == 'NilClass'
+          functions[id] = Object.const_get(item[:class]).from_parameters(item[:parameters])
+        end
+
+        neurons = {}
+        yaml[:neurons].each do |id, item|
+          item[:parameters][:function] = functions[item[:parameters][:function]]
+          neurons[id] = Object.const_get(item[:class]).from_parameters(item[:parameters])
+        end
+
+        layers = {}
+        yaml[:layers].each do |id, item|
+          layers[id] = Object.const_get(item[:class]).from_parameters(item[:parameters])
+          net.layers.push layers[id]
+
+          item[:neurons].each do |nid|
+            layers[id].neurons.push neurons[nid]
+          end
+        end
+
+        connections = {}
+        yaml[:connections].each do |id, item|
+          item[:parameters][:source] = neurons[item[:parameters][:source]]
+          item[:parameters][:target] = neurons[item[:parameters][:target]]
+          connections[id] = Object.const_get(item[:class]).from_parameters(item[:parameters])
+        end
+
+        net
+      end
     end
   end
 end
