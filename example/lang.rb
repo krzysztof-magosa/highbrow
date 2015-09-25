@@ -33,8 +33,8 @@ end
 
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: $alphabet.count, bias: true, function: nil)
-net.layers.push Highbrow::Layer.new(neurons: 25, bias: true, function: Highbrow::Function::Sigmoid.new)
-net.layers.push Highbrow::Layer.new(neurons: langs.count, function: Highbrow::Function::Sigmoid.new)
+net.layers.push Highbrow::Layer.new(neurons: 25, bias: true, function: Highbrow::Function::Softplus.new)
+net.layers.push Highbrow::Layer.new(neurons: langs.count, function: Highbrow::Function::Softplus.new)
 net.finalize!
 
 bp = Highbrow::Trainer::BackPropagation.new net

@@ -15,12 +15,13 @@ module Highbrow
       @output = 0.0
 
       @bias = bias
+      # @input = 0.5 + (rand(1000) / 2000.0) if bias
       @input = 1.0 if bias
       @function = function
     end
 
     def activate
-      value = @input.nil? ? inputs_sum : @input
+      value = @input.nil? ? inputs_sum : @input.to_f
       @output = @function.nil? ? value : @function.primary(value)
     end
 

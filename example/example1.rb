@@ -17,11 +17,11 @@ xor_truth = [
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
 
-net.layers.push Highbrow::Layer.new(neurons: 5, bias: true, function: Highbrow::Function::Sigmoid.new)
+net.layers.push Highbrow::Layer.new(neurons: 3, bias: true, function: Highbrow::Function::Sigmoid.new)
 net.layers.push Highbrow::Layer.new(neurons: 1, function: Highbrow::Function::Sigmoid.new)
 
-#net.layers.push Highbrow::Layer.new(neurons: 5, bias: true)
-#net.layers.push Highbrow::Layer.new(neurons: 1)
+# net.layers.push Highbrow::Layer.new(neurons: 5, bias: true)
+# net.layers.push Highbrow::Layer.new(neurons: 1)
 
 net.finalize!
 
@@ -34,13 +34,13 @@ bp.goal = 0.00001
 bp.plug(Highbrow::Plugin::SmartLearningRate.new)
 bp.plug(Highbrow::Plugin::Monitor.new)
 
-#bp.batch_mode = true
+# bp.batch_mode = true
 bp.train
 
-#bp.batch_mode = true
-#bp.goal = 0.01
+# bp.batch_mode = true
+# bp.goal = 0.01
 
-#bp.train
+# bp.train
 
 puts '---'
 

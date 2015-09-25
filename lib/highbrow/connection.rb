@@ -14,7 +14,7 @@ module Highbrow
     def randomize
       #@weight = Random.rand(-0.5..0.5)
       #@weight = Random.rand(0.01..1.0)
-      @weight = ((rand 2000)/1000.0) - 1
+      @weight = ((rand 2000) / 1000.0) - 1.0
     end
 
     def value

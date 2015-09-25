@@ -3,15 +3,18 @@ module Highbrow
     # Represents softplus function
     # https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
     class Softplus < Base
-      E = 2.71828183
-
       def primary(input)
-        input = 700.0 if input > 700.0
-        Math.log(1.0 + E**input)
+        return 0.0 if input < -30.0
+        return 30 if input > 30.0
+
+        Math.log(1.0 + Math.exp(input))
       end
 
       def derivative(output)
-        1.0 / (1.0 + E**-output)
+        return 1.0 if output > 30.0 # 100%
+        return 0.00001 if output < -10.0
+
+        1.0 / (1.0 + Math.exp(-output))
       end
     end
   end

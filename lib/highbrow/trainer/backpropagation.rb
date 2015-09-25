@@ -6,11 +6,11 @@ module Highbrow
     class BackPropagation < Base
       # Represents training data used by backpropagation
       class TrainingDataItem
-        attr_accessor :gradient
+        attr_accessor :delta
         attr_accessor :correction
 
         def initialize
-          @gradient = 0.0
+          @delta = 0.0
           @correction = 0.0
         end
       end
@@ -33,32 +33,33 @@ module Highbrow
       end
 
       def propagate_output(neuron, ideal)
-        derivative = neuron.function.derivative(neuron.output)
-        error = ideal - neuron.output
-        @training_data[neuron].gradient = error * derivative
+        error = (ideal - neuron.output) # * significance
+        derivative = neuron.function.derivative neuron.output
+
+        @training_data[neuron].delta = error * derivative
       end
 
       def propagate_hidden(neuron)
-        product_sum = 0.0
+        sum = 0.0
 
         neuron.outputs.each do |conn|
-          product_sum += @training_data[conn.target].gradient * conn.weight
+          sum += conn.weight * @training_data[conn.target].delta
         end
 
-        @training_data[neuron].gradient = neuron.function.derivative(neuron.output) * product_sum
+        @training_data[neuron].delta = neuron.function.derivative(neuron.output) * sum
       end
 
       def update_weights(neuron)
         training_data = @training_data[neuron]
 
         neuron.inputs.each do |conn|
-          correction = @learning_rate * conn.value * training_data.gradient
-          correction += @momentum * training_data.correction
+          correction = @learning_rate * training_data.delta * conn.value
+          # correction += @momentum * training_data.correction
 
           if @batch_mode
-            @batch_corrections[conn] += correction
+            @batch_corrections[conn] += correction + (@momentum * training_data.correction)
           else
-            conn.weight += correction
+            conn.weight += correction + (@momentum * training_data.correction)
           end
 
           training_data.correction = correction

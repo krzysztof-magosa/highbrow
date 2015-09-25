@@ -16,6 +16,8 @@ module Highbrow
         @goal = 0.05
         @momentum = 0.3
         @learning_rate = 0.3
+
+        @set_size = 0
       end
 
       # Calculates squared error for specified traing pair
@@ -27,6 +29,7 @@ module Highbrow
         @network.output.zip(training_pair[1]).each do |a, e|
           # @TODO check that
           error += (e - a)**2
+          @set_size += 1
         end
 
         error
@@ -41,8 +44,8 @@ module Highbrow
 
         # @last_epoch_error = Math.sqrt(error / @training_set.count)
         # MSE https://github.com/encog/encog-java-core/blob/master/src/main/java/org/encog/mathutil/error/ErrorCalculation.java
-        size = @network.layers.last.neurons.count * @training_set.count
-        @last_epoch_error = error / size
+        @last_epoch_error = error / @set_size.to_f
+        @set_size = 0.0
       end
 
       def plug(plugin)
