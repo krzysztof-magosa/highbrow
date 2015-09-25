@@ -1,11 +1,11 @@
-require 'nnmath'
+#require 'nnmath'
 
 module Highbrow
   module Function
     # Represents sigmoid function
     # https://en.wikipedia.org/wiki/Sigmoid_function
     class Sigmoid < Base
-      include NNMath
+ #     include NNMath
 
       def initialize
         @slope = 1.0

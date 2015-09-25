@@ -14,9 +14,9 @@ xor_truth = [
   [[1, 1], [0]]
 ]
 
-net = Highbrow::Network::FeedForward.load '/tmp/net.data'
-
-if false
+if File.exists? '/tmp/net.data'
+  net = Highbrow::Network::FeedForward.load '/tmp/net.data'
+else
 net = Highbrow::Network::FeedForward.new
 net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
 
