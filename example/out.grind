@@ -1,0 +1,2126 @@
+events: wall_time
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#inspect
+0 19
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#inspect
+0 9
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#inspect
+calls=4 55
+55 19
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#post_train
+23 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#!=
+calls=1 24
+24 3
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#show
+calls=1 24
+24 99
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+fn=Highbrow::Plugin::Base#post_train
+19 5
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#<=
+0 379
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+fn=Highbrow::Plugin::SmartLearningRate#adjust_rate
+45 2386
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=1217 46
+46 349
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#>
+calls=1217 48
+48 200
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#<=
+calls=1217 49
+49 379
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#<
+0 912
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#printf
+0 2913
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#write
+calls=783 41
+41 2177
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#write
+calls=9 41
+41 21
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=IO#write
+0 4170
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=IO#puts
+0 128
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#write
+calls=174 32
+32 1941
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#write
+calls=2 32
+32 21
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#write
+calls=2 55
+55 10
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#puts
+0 117
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#puts
+calls=87 32
+32 2066
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#puts
+calls=1 32
+32 22
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#puts
+calls=1 55
+55 12
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=String#*
+0 170
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#fdiv
+0 46
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Numeric#quo
+0 93
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#fdiv
+calls=87 30
+30 45
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#fdiv
+calls=1 30
+30 1
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Time#-
+0 129
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#-
+calls=87 30
+30 33
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Numeric#quo
+calls=87 30
+30 137
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#-
+calls=1 30
+30 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Numeric#quo
+calls=1 30
+30 2
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#show
+29 1476
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Time>#now
+calls=87 30
+30 386
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Time#-
+calls=87 30
+30 297
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#*
+calls=87 32
+32 168
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#puts
+calls=87 32
+32 2180
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#printf
+calls=783 41
+41 5061
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#/
+calls=87 41
+41 94
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Time>#now
+calls=1 30
+30 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Time#-
+calls=1 30
+30 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#*
+calls=1 32
+32 2
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#puts
+calls=1 32
+32 23
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#printf
+calls=9 41
+41 50
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#/
+calls=1 41
+41 2
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#%
+0 1097
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#post_epoch
+14 3353
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=2169 15
+15 928
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#%
+calls=2169 16
+16 1097
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=2169 16
+16 511
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#show
+calls=87 16
+16 9650
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+fn=Highbrow::Plugin::SmartLearningRate#post_epoch
+23 5400
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=2168 25
+25 670
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#>
+calls=2168 26
+26 1167
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#<
+calls=2022 26
+26 912
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+cfn=Highbrow::Plugin::SmartLearningRate#adjust_rate
+calls=1217 36
+36 3314
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#apply_batch_corrections
+105 1545
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#propagate_hidden
+37 897022
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=650700 40
+40 5422025
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]
+calls=650700 44
+44 550777
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#derivative
+calls=650700 44
+44 883542
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=650700 44
+44 120201
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#update_weights
+47 609167
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]
+calls=754812 48
+48 570342
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=754812 50
+50 60886343
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#hash
+0 879055
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Hash#[]=
+0 95
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=4 25
+25 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=25 25
+25 10
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation::TrainingDataItem#initialize
+12 43
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Proc#yield
+0 65
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=4 25
+25 28
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]=
+calls=4 25
+25 23
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=25 25
+25 91
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]=
+calls=25 25
+25 88
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Hash#[]
+0 2582114
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Proc#yield
+calls=4 34
+34 67
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=104111 34
+34 30652
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=754812 48
+48 147274
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=2602800 41
+41 555930
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#hash
+calls=650700 44
+44 145183
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Proc#yield
+calls=25 44
+44 228
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+fn=Highbrow::Function::Sigmoid#derivative
+16 598271
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#-
+calls=104112 20
+20 26418
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=104112 20
+20 19279
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=104112 20
+20 19299
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#-
+calls=650700 20
+20 143937
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=650700 20
+20 117571
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=650700 20
+20 107946
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#propagate_output
+31 153442
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#derivative
+calls=104112 32
+32 149180
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#-
+calls=104112 33
+33 19708
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]
+calls=104112 34
+34 149212
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=104112 34
+34 22671
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=BasicObject#==
+0 139575
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#reject
+0 156329
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#propagate
+64 28106
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reverse
+calls=26028 65
+65 20869
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=26028 65
+65 21627
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26028 65
+65 72441353
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#shuffle
+0 4432
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#epoch
+93 3482
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#shuffle
+calls=2169 96
+96 4432
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=2169 96
+96 117532754
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#apply_batch_corrections
+calls=2169 102
+102 1545
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#pre_epoch
+10 1441
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+fn=Highbrow::Plugin::SmartLearningRate#pre_epoch
+14 1361
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#>
+0 1899
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Time#initialize
+0 128
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=1 20
+20 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=87 30
+30 39
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=1 30
+30 1
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Class::Time>#now
+0 234
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Time#initialize
+calls=1 20
+20 8
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Time#initialize
+calls=87 30
+30 160
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Time#initialize
+calls=1 30
+30 3
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#pre_train
+19 10
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Time>#now
+calls=1 20
+20 13
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+fn=Highbrow::Plugin::Base#pre_train
+16 5
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#**
+0 35634
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+fn=Highbrow::Network::FeedForward#output
+18 33715
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#last
+calls=26040 19
+19 14360
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=26040 19
+19 12120
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#map
+calls=26040 19
+19 54185
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#last
+calls=1 19
+19 2
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=1 19
+19 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#map
+calls=1 19
+19 2
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Module::Math>#exp
+0 461003
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#*
+0 305555
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+fn=Highbrow::Function::Sigmoid#primary
+10 1429814
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#*
+calls=755160 13
+13 150603
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Module::Math>#exp
+calls=755160 13
+13 229505
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=755160 13
+13 143764
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=755160 13
+13 150204
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#*
+calls=754812 13
+13 154268
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Module::Math>#exp
+calls=754812 13
+13 231487
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=754812 13
+13 143485
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=754812 13
+13 153870
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#*
+calls=29 13
+13 7
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Module::Math>#exp
+calls=29 13
+13 10
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=29 13
+13 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=29 13
+13 9
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#+
+0 14857284
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#*
+0 18032464
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+fn=Highbrow::Connection#value
+20 25600405
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+fn=Highbrow::Connection#weighed_value
+24 28181694
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#value
+calls=20936160 25
+25 8334022
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=20936160 25
+25 3545930
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#value
+calls=20926512 25
+25 8386920
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=20926512 25
+25 3532014
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#value
+calls=804 25
+25 293
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=804 25
+25 110
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+fn=Highbrow::Neuron#inputs_sum
+29 1164701
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=755160 33
+33 39431101
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=754812 33
+33 39606874
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=29 33
+33 1333
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=NilClass#nil?
+0 485098
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#nil?
+0 546114
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+fn=Highbrow::Neuron#activate
+22 3012917
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#nil?
+calls=1510320 24
+24 267787
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=NilClass#nil?
+calls=1510320 23
+23 238233
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#inputs_sum
+calls=755160 23
+23 40015473
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#primary
+calls=755160 24
+24 1379250
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#nil?
+calls=1509624 24
+24 278316
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=NilClass#nil?
+calls=1509624 23
+23 246852
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#inputs_sum
+calls=754812 23
+23 40187178
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#primary
+calls=754812 24
+24 1407722
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#nil?
+calls=58 24
+24 11
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=NilClass#nil?
+calls=58 23
+23 13
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#inputs_sum
+calls=29 23
+23 1357
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#primary
+calls=29 24
+24 59
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+fn=Highbrow::Layer#activate
+30 164227
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=78120 31
+31 42715
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=78120 31
+31 43796529
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=78084 31
+31 47796
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=78084 31
+31 44041198
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=3 31
+31 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=3 31
+31 1497
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+fn=Highbrow::Network::FeedForward#activate
+13 58106
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=26040 14
+14 13866
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26040 14
+14 43966808
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=26028 14
+14 13613
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26028 14
+14 44219476
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=1 14
+14 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 14
+14 1505
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=BasicObject#!=
+0 25445
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=26040 27
+27 6643
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=26028 27
+27 7249
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=1 24
+24 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=1 27
+27 0
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#-
+0 15457
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#first
+0 19156
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+fn=Highbrow::Network::FeedForward#input=
+23 120629
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#first
+calls=26040 24
+24 9388
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=52080 27
+27 30649
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#bias?
+calls=26040 26
+26 82973
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#-
+calls=26040 26
+26 7191
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#!=
+calls=26040 27
+27 18516
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#each_with_index
+calls=26040 29
+29 431324
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#first
+calls=26028 24
+24 9767
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=52056 27
+27 32817
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#bias?
+calls=26028 26
+26 133595
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#-
+calls=26028 26
+26 8232
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#!=
+calls=26028 27
+27 20817
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#each_with_index
+calls=26028 29
+29 439482
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#first
+calls=1 24
+24 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=2 27
+27 2
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#bias?
+calls=1 26
+26 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#-
+calls=1 26
+26 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#!=
+calls=1 27
+27 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#each_with_index
+calls=1 29
+29 16
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+fn=Highbrow::Trainer::Base#squared_error
+22 77960
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=52080 27
+27 14065
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#input=
+calls=26040 23
+23 637955
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#activate
+calls=26040 24
+24 44011750
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#output
+calls=26040 27
+27 114379
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#zip
+calls=26040 27
+27 48210
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26040 27
+27 160623
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+fn=Highbrow::Trainer::Base#squared_epoch_error
+36 9709
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=2170 38
+38 45090537
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#last
+calls=2170 44
+44 1530
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=4340 44
+44 2289
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#*
+calls=2170 44
+44 678
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=2170 45
+45 548
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+fn=Highbrow::Trainer::Base#train
+54 7446
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+cfn=Highbrow::Trainer::Base#squared_epoch_error
+calls=2170 61
+61 45105291
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=4340 65
+65 3114
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=4340 65
+65 38380
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#>
+calls=2170 62
+62 532
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#epoch
+calls=2169 60
+60 117542213
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+fn=Highbrow::Plugin::Base#init
+7 3
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+fn=Highbrow::Plugin::Monitor#initialize
+5 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#/
+0 305303
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+fn=Highbrow::Plugin::SmartLearningRate#init
+10 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=1 11
+11 2
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#/
+calls=1 11
+11 2
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+fn=Highbrow::Trainer::Base#plug
+48 12
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+cfn=Highbrow::Plugin::SmartLearningRate#init
+calls=1 50
+50 10
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=2 51
+51 2
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+cfn=Highbrow::Plugin::Base#init
+calls=1 50
+50 3
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+fn=Highbrow::Plugin::SmartLearningRate#initialize
+5 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Hash#initialize
+0 3
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Proc#to_proc
+0 3
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Hash#default_proc=
+0 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Proc#to_proc
+calls=1 24
+24 3
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#proc
+0 4
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+fn=Highbrow::Trainer::Base#initialize
+12 8
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+fn=Highbrow::Trainer::BackPropagation#initialize
+20 16
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+cfn=Highbrow::Trainer::Base#initialize
+calls=1 21
+21 8
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#proc
+calls=1 24
+24 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#default_proc=
+calls=1 24
+24 8
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=1 28
+28 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Float#-
+0 212035
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#rand
+0 867
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#respond_to_missing?
+calls=804 17
+17 288
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+fn=Highbrow::Connection#randomize
+14 1314
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#rand
+calls=804 17
+17 1155
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#/
+calls=804 17
+17 343
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#-
+calls=804 17
+17 278
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+fn=Highbrow::Connection#initialize
+8 1131
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#randomize
+calls=804 11
+11 3090
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+fn=<Class::Highbrow::Connection>#interconnect
+28 1640
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=804 29
+29 5249
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=1608 31
+31 995
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+fn=<Class::Highbrow::Layer>#interconnect
+34 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=2 35
+35 8850
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#zip
+0 48221
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#any?
+0 29170
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Symbol#to_proc
+0 195183
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#reverse
+0 87656
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+fn=Highbrow::Layer#bias?
+25 90201
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reverse
+calls=1 27
+27 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=1 27
+27 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#any?
+calls=1 27
+27 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reverse
+calls=26040 27
+27 26629
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=26040 27
+27 13351
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#any?
+calls=26040 27
+27 12485
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reverse
+calls=26028 27
+27 40154
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=26028 27
+27 17079
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#any?
+calls=26028 27
+27 16679
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reverse
+calls=1 27
+27 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=1 27
+27 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#any?
+calls=1 27
+27 1
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#last
+0 448617
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#<
+0 3
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+fn=Highbrow::Network::FeedForward#finalize!
+63 10
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=1 64
+64 2
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#<
+calls=1 64
+64 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#last
+calls=1 65
+65 3
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#bias?
+calls=1 65
+65 23
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=2 68
+68 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#zip
+calls=1 68
+68 11
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 68
+68 8872
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+fn=Highbrow::Function::Sigmoid#initialize
+6 7
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+fn=Highbrow::Neuron#initialize
+12 210
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Integer#times
+0 95
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=56 19
+19 275
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=56 21
+21 34
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#==
+0 14408
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+fn=Highbrow::Layer#create_neurons
+15 7
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#==
+calls=3 16
+16 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Integer#times
+calls=3 18
+18 404
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+fn=Highbrow::Layer#initialize
+9 19
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#create_neurons
+calls=3 11
+11 415
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=2 12
+12 17
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=2 12
+12 4
+
+fl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+fn=Highbrow::Network::FeedForward#initialize
+7 7
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#push
+0 1055
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#/
+0 577
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#map
+0 54427
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#/
+calls=324 19
+19 132
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#/
+calls=27 19
+19 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#to_f
+0 14
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Enumerable#reduce
+0 72
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=12 16
+16 266
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 16
+16 9
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#[]=
+0 12684
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#+
+0 7051
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#[]
+0 292317
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#index
+0 20722
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#include?
+0 33318
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=String#split
+0 20293
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#initialize
+0 61
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Class#new
+0 1196
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#initialize
+calls=12 10
+10 26
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#initialize
+calls=12 27
+27 31
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#initialize
+calls=1 34
+34 7
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#initialize
+calls=3 37
+37 455
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/function/sigmoid.rb
+cfn=Highbrow::Function::Sigmoid#initialize
+calls=2 37
+37 7
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#initialize
+calls=1 40
+40 42
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+cfn=Highbrow::Plugin::SmartLearningRate#initialize
+calls=1 45
+45 4
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#initialize
+calls=1 46
+46 4
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#initialize
+calls=56 19
+19 202
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#initialize
+calls=2 12
+12 8
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#initialize
+calls=804 29
+29 4222
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#initialize
+calls=1 28
+28 3
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation::TrainingDataItem#initialize
+calls=4 25
+25 11
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation::TrainingDataItem#initialize
+calls=25 25
+25 32
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#initialize
+calls=1 10
+10 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#count
+0 65802
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=String#downcase
+0 168
+
+fl=/Users/hexio/projects/ruby/highbrow/example/lang.rb
+fn=Object#calc_freq
+8 122
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#downcase
+calls=12 9
+9 150
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=12 10
+10 17
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=12 10
+10 52
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#split
+calls=12 12
+12 20032
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=12 12
+12 111616
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#reduce
+calls=12 16
+16 336
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#to_f
+calls=12 16
+16 11
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#map
+calls=12 18
+18 364
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#downcase
+calls=1 9
+9 18
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=1 10
+10 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=1 10
+10 8
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#split
+calls=1 12
+12 261
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 12
+12 1565
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#reduce
+calls=1 16
+16 12
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#to_f
+calls=1 16
+16 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#map
+calls=1 18
+18 14
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Class::IO>#read
+0 801
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Fixnum#to_s
+0 26
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Enumerable#each_with_index
+0 122138
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 23
+23 133723
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26040 29
+29 403462
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=26028 29
+29 411924
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=52056 66
+66 72106692
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=1 29
+29 14
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Class::File>#dirname
+0 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#+
+0 3
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=String#upto
+0 11
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Range#each
+0 144
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#upto
+calls=1 4
+4 11
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#to_s
+calls=12 25
+25 26
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::IO>#read
+calls=12 25
+25 750
+cfl=/Users/hexio/projects/ruby/highbrow/example/lang.rb
+cfn=Object#calc_freq
+calls=12 25
+25 132696
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=12 27
+27 17
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=12 27
+27 59
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]=
+calls=12 28
+28 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=12 30
+30 14
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Enumerable#to_a
+0 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Range#each
+calls=1 4
+4 17
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=String#<=>
+0 3
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#alias_method
+0 5
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=1 7
+7 2
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#private
+0 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#attr_reader
+0 53
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=10 10
+10 9
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#extended
+0 2
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#extend_object
+0 7
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#extend
+0 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#extend_object
+calls=1 6
+6 7
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#extended
+calls=1 6
+6 2
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=BasicObject#singleton_method_added
+0 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#attr_accessor
+0 124
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#singleton_method_added
+calls=2 121
+121 2
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=24 8
+8 16
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Class::Regexp>#quote
+0 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#gem_original_require
+0 1225
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#set_encoding
+calls=2 54
+54 10
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Regexp>#quote
+calls=1 115
+115 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#attr_accessor
+calls=1 121
+121 21
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=12 288
+288 10
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Mutex#unlock
+0 4
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+fn=MonitorMixin#mon_check_owner
+244 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Thread>#current
+calls=2 245
+245 2
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+fn=MonitorMixin#mon_exit
+194 8
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+cfn=MonitorMixin#mon_check_owner
+calls=2 195
+195 8
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Mutex#unlock
+calls=2 199
+199 4
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/specification.rb
+fn=<Class::Gem::Specification>#unresolved_deps
+1168 6
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Array#each
+0 82437
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Range#each
+calls=4 24
+24 133705
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#include?
+calls=21463 13
+13 33017
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#index
+calls=19816 13
+13 20286
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=19816 13
+13 6305
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=19816 13
+13 5893
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]=
+calls=19816 13
+13 12451
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=312 16
+16 107
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=4 69
+69 4
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=<Class::Highbrow::Layer>#interconnect
+calls=2 69
+69 8856
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=54 36
+36 8803
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=<Class::Highbrow::Connection>#interconnect
+calls=804 38
+38 7884
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+cfn=Highbrow::Trainer::Base#squared_error
+calls=26040 39
+39 45064941
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=26040 39
+39 5374
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=703080 30
+30 105075
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#activate
+calls=78120 14
+14 43923572
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#activate
+calls=1510320 31
+31 43403179
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#weighed_value
+calls=20936160 34
+34 25904374
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=20936160 34
+34 3437675
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#-
+calls=104160 29
+29 21694
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#**
+calls=104160 29
+29 35634
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=104160 29
+29 18799
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+cfn=Highbrow::Plugin::Base#pre_train
+calls=1 56
+56 5
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#pre_train
+calls=1 56
+56 23
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+cfn=Highbrow::Plugin::SmartLearningRate#pre_epoch
+calls=2169 59
+59 1361
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#pre_epoch
+calls=2169 59
+59 1441
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb
+cfn=Highbrow::Plugin::SmartLearningRate#post_epoch
+calls=2169 62
+62 11463
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#post_epoch
+calls=2169 62
+62 15539
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb
+cfn=Highbrow::Plugin::Base#post_train
+calls=1 65
+65 5
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb
+cfn=Highbrow::Plugin::Monitor#post_train
+calls=1 65
+65 105
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#input=
+calls=26028 97
+97 707422
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#activate
+calls=26028 98
+98 44260118
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#propagate
+calls=26028 99
+99 72511954
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=702756 30
+30 121675
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#activate
+calls=78084 14
+14 44168890
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#activate
+calls=1509624 31
+31 43630501
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#weighed_value
+calls=20926512 34
+34 26075721
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=20926512 34
+34 3384253
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Symbol#to_proc
+calls=52056 66
+66 31517
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#reject
+calls=52056 66
+66 156329
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#each_with_index
+calls=52056 66
+66 72173374
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#last
+calls=754812 67
+67 432722
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#==
+calls=754812 67
+67 139575
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=104112 68
+68 23482
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#propagate_output
+calls=104112 68
+68 494213
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#update_weights
+calls=754812 73
+73 62065852
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb
+cfn=Highbrow::Trainer::BackPropagation#propagate_hidden
+calls=650700 70
+70 7873567
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#value
+calls=20926512 51
+51 8879169
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=62779536 52
+52 10204272
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=41853024 57
+57 7117203
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Hash#[]
+calls=2602800 41
+41 2191117
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#*
+calls=2602800 41
+41 470067
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=2602800 41
+41 479362
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#include?
+calls=606 13
+13 301
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#index
+calls=564 13
+13 436
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=564 13
+13 76
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=564 13
+13 77
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]=
+calls=564 13
+13 227
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Fixnum#+
+calls=26 16
+16 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#[]
+calls=27 30
+30 4
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb
+cfn=Highbrow::Layer#activate
+calls=3 14
+14 1503
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb
+cfn=Highbrow::Neuron#activate
+calls=58 31
+31 1489
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb
+cfn=Highbrow::Connection#weighed_value
+calls=804 34
+34 888
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Float#+
+calls=804 34
+34 116
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb
+fn=<Module::Gem>#suffixes
+889 6
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb
+fn=<Module::Gem>#find_unresolved_default_spec
+1118 9
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb
+cfn=<Module::Gem>#suffixes
+calls=2 1119
+1119 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#each
+calls=2 1119
+1119 22
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#respond_to_missing?
+0 292
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#respond_to?
+0 7
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#respond_to_missing?
+calls=2 41
+41 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Mutex#lock
+0 4
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=<Class::Thread>#current
+0 5
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+fn=MonitorMixin#mon_enter
+183 18
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::Thread>#current
+calls=4 186
+186 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Mutex#lock
+calls=2 185
+185 4
+
+fl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb
+fn=Kernel#require
+38 26
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+cfn=MonitorMixin#mon_enter
+calls=2 39
+39 25
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#respond_to?
+calls=2 41
+41 11
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb
+cfn=<Module::Gem>#find_unresolved_default_spec
+calls=2 43
+43 37
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/specification.rb
+cfn=<Class::Gem::Specification>#unresolved_deps
+calls=2 52
+52 6
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb
+cfn=MonitorMixin#mon_exit
+calls=2 53
+53 20
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#gem_original_require
+calls=2 54
+54 1272
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Module#method_added
+0 78
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Class#inherited
+0 21
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=Kernel#require_relative
+0 284
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#set_encoding
+calls=2 1
+1 11
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#require_relative
+calls=14 19
+19 9738
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=IO#set_encoding
+calls=28 19
+19 95
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#inherited
+calls=15 3
+3 21
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=75 29
+29 40
+cfl=/Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb
+cfn=Kernel#require
+calls=2 1
+1 1397
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#extend
+calls=1 6
+6 13
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#attr_reader
+calls=10 10
+10 62
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=BasicObject#singleton_method_added
+calls=2 28
+28 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#attr_accessor
+calls=12 8
+8 121
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#private
+calls=3 27
+27 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#alias_method
+calls=1 7
+7 7
+
+fl=/Users/hexio/projects/ruby/highbrow/example/lang.rb
+fn=Global#[No method]
+1 94
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#require_relative
+calls=1 1
+1 10033
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=String#<=>
+calls=1 4
+4 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#to_a
+calls=1 4
+4 21
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#+
+calls=1 4
+4 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::File>#dirname
+calls=1 6
+6 4
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Module#method_added
+calls=1 8
+8 1
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Enumerable#each_with_index
+calls=1 23
+23 133757
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Class#new
+calls=9 46
+46 555
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#count
+calls=2 37
+37 3
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#push
+calls=4 41
+41 5
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#finalize!
+calls=1 38
+38 8928
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+cfn=Highbrow::Trainer::Base#plug
+calls=2 46
+46 27
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb
+cfn=Highbrow::Trainer::Base#train
+calls=1 49
+49 162696976
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=<Class::IO>#read
+calls=1 52
+52 51
+cfl=/Users/hexio/projects/ruby/highbrow/example/lang.rb
+cfn=Object#calc_freq
+calls=1 52
+52 1889
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#input=
+calls=1 53
+53 31
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#activate
+calls=1 54
+54 1508
+cfl=/Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb
+cfn=Highbrow::Network::FeedForward#output
+calls=1 55
+55 6
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Array#inspect
+calls=1 55
+55 28
+cfl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+cfn=Kernel#puts
+calls=1 55
+55 14
+
+fl=/Users/hexio/projects/ruby/highbrow/example/ruby_runtime
+fn=IO#set_encoding
+0 142
+

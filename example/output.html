@@ -1,0 +1,857 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>ruby-prof call tree</title>
+<style type="text/css">
+<!--
+  body {
+    font-size:70%;
+    padding:0;
+    margin:5px;
+    margin-right:0px;
+    margin-left:0px;
+    background: #ffffff;
+  }
+  ul {
+    margin-left:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-left:0px;
+    list-style-type:none;
+  }
+  li {
+    margin-left:11px;
+    padding:0px;
+    white-space:nowrap;
+    border-top:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-bottom:none;
+  }
+  .thread {
+    margin-left:11px;
+    background:#708090;
+    padding-top:3px;
+    padding-left:12px;
+    padding-bottom:2px;
+    border-left:1px solid #CCCCCC;
+    border-top:1px solid #CCCCCC;
+    font-weight:bold;
+  }
+  .hidden {
+    display:none;
+    width:0px;
+    height:0px;
+    margin:0px;
+    padding:0px;
+    border-style:none;
+  }
+  .color01 { background:#adbdeb }
+  .color05 { background:#9daddb }
+  .color0 { background:#8d9dcb }
+  .color1 { background:#89bccb }
+  .color2 { background:#56e3e7 }
+  .color3 { background:#32cd70 }
+  .color4 { background:#a3d53c }
+  .color5 { background:#c4cb34 }
+  .color6 { background:#dcb66d }
+  .color7 { background:#cda59e }
+  .color8 { background:#be9d9c }
+  .color9 { background:#cf947a }
+  #commands {
+    font-size:10pt;
+    padding:10px;
+    margin-left:11px;
+    margin-bottom:0px;
+    margin-top:0px;
+    background:#708090;
+    border-top:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-bottom:none;
+  }
+  #titlebar {
+    font-size:10pt;
+    padding:10px;
+    margin-left:11px;
+    margin-bottom:0px;
+    margin-top:10px;
+    background:#8090a0;
+    border-top:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-bottom:none;
+  }
+  #help {
+    font-size:10pt;
+    padding:10px;
+    margin-left:11px;
+    margin-bottom:0px;
+    margin-top:0px;
+    background:#8090a0;
+    display:none;
+    border-top:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-bottom:none;
+  }
+  #sentinel {
+    height: 400px;
+    margin-left:11px;
+    background:#8090a0;
+    border-top:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-bottom:none;
+  }
+  input { margin-left:10px; }
+
+  .toggle {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAJCAMAAAD0FKf3AAAAA3NCSVQICAjb4U/gAAAAb1BMVEX///98jcR8jMV4jMB7jcR7jcR8jcT////7/f/3/P/0+vzx+v7s9vzq9Pzm8Prk7vzi7fnj5/Pc5vTb5vbg5PHW4fHV3/XS3fLM1+3K1e/G0e3EzuzCzey8x+m8xuystuSqtt98jsR8jcR7jcQAAADWswcWAAAAJXRSTlMAVVVV3e7u////////////////////////////////////////Vv4VOQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAACVSURBVAiZPc/hDoIwDATgobCWgZsWgSGidOz9n9F1CPfrki+5tIqPXHSQVMVZFH8/sx/Is16X9zR2vtQPAMC6LxVnco5Dpvtt40QRGrspnueBqDUcdmrEMILtknkiQkQOU5RAsn9RPGRKNkLOxiibIEauNSYZy2CNyerGRngtsilkiLXP9Cx1bzuAZU13Himq/a3rWX4VVRPEuDWiLQAAAABJRU5ErkJggg==) no-repeat left center;
+    float:left;
+    width:9px;
+    height:9px;
+    margin:2px 1px 1px 1px;
+  }
+
+  .toggle.minus {
+    background-position: -9px 0;
+  }
+
+  .toggle.plus {
+    background-position: -18px 0;
+  }
+
+-->
+</style>
+<script type="text/javascript">
+  /*
+   Copyright (C) 2005,2009  Stefan Kaes
+   skaes@railsexpress.de
+   */
+
+  function rootNode() {
+    return currentThread;
+  }
+
+  function showUL(node, show) {
+    var lis = node.childNodes;
+    var l = lis.length;
+    for (var i=0; i < l ; i++ ) {
+      toggle(lis[i], show);
+    }
+  }
+
+  function findUlChild(li){
+    var ul = li.childNodes[2];
+    while (ul && ul.nodeName != "UL") {
+      ul = ul.nextSibling;
+    }
+    return ul;
+  }
+
+  function isLeafNode(li) {
+    var img = li.firstChild;
+    return (img.className.indexOf('empty') > -1);
+  }
+
+  function toggle(li, show) {
+    if (isLeafNode(li))
+      return;
+
+    var img = li.firstChild;
+    img.className = 'toggle ';
+    img.className += show ? 'minus' : 'plus';
+
+    var ul = findUlChild(li);
+    if (ul) {
+      ul.style.display = show ? 'block' : 'none';
+      showUL(ul, true);
+    }
+  }
+
+  function toggleLI(li) {
+    var img = li.firstChild;
+    if (img.className.indexOf("minus")>-1)
+      toggle(li, false);
+    else {
+      if (img.className.indexOf("plus")>-1)
+        toggle(li, true);
+    }
+  }
+
+  function aboveThreshold(text, threshold) {
+    var match = text.match(/\d+[.,]\d+/);
+    return (match && parseFloat(match[0].replace(/,/, '.'))>=threshold);
+  }
+
+  function setThresholdLI(li, threshold) {
+    var img = li.firstChild;
+    var text = img.nextSibling;
+    var ul = findUlChild(li);
+
+    var visible = aboveThreshold(text.nodeValue, threshold) ? 1 : 0;
+
+    var count = 0;
+    if (ul) {
+      count = setThresholdUL(ul, threshold);
+    }
+    if (count>0) {
+      img.className = 'toggle minus';
+    }
+    else {
+      img.className = 'toggle empty';
+    }
+    if (visible) {
+      li.style.display = 'block'
+    }
+    else {
+      li.style.display = 'none'
+    }
+    return visible;
+  }
+
+  function setThresholdUL(node, threshold) {
+    var lis = node.childNodes;
+    var l = lis.length;
+
+    var count = 0;
+    for ( var i = 0; i < l ; i++ ) {
+      count = count + setThresholdLI(lis[i], threshold);
+    }
+
+    var visible = (count > 0) ? 1 : 0;
+    if (visible) {
+      node.style.display = 'block';
+    }
+    else {
+      node.style.display = 'none';
+    }
+    return visible;
+  }
+
+  function toggleChildren(img, event) {
+    event.cancelBubble=true;
+    if (img.className.indexOf('empty') > -1)
+      return;
+
+    var minus = (img.className.indexOf('minus') > -1);
+
+    if (minus) {
+      img.className = 'toggle plus';
+    }
+    else
+      img.className = 'toggle minus';
+
+    var li = img.parentNode;
+    var ul = findUlChild(li);
+    if (ul) {
+      if (minus)
+        ul.style.display = 'none';
+      else
+        ul.style.display = 'block';
+    }
+    if (minus)
+      moveSelectionIfNecessary(li);
+  }
+
+  function showChildren(li) {
+    var img = li.firstChild;
+    if (img.className.indexOf('empty') > -1)
+      return;
+    img.className = 'toggle minus';
+
+    var ul = findUlChild(li);
+    if (ul) {
+      ul.style.display = 'block';
+    }
+  }
+
+  function setThreshold() {
+    var tv = document.getElementById("threshold").value;
+    if (tv.match(/[0-9]+([.,][0-9]+)?/)) {
+      var f = parseFloat(tv.replace(/,/, '.'));
+      var threads = document.getElementsByName("thread");
+      var l = threads.length;
+      for ( var i = 0; i < l ; i++ ) {
+        setThresholdUL(threads[i], f);
+      }
+      var p = selectedNode;
+      while (p && p.style.display=='none')
+        p=p.parentNode.parentNode;
+      if (p && p.nodeName=="LI")
+        selectNode(p);
+    }
+    else {
+      alert("Please specify a decimal number as threshold value!");
+    }
+  }
+
+  function expandAll(event) {
+    toggleAll(event, true);
+  }
+
+  function collapseAll(event) {
+    toggleAll(event, false);
+    selectNode(rootNode(), null);
+  }
+
+  function toggleAll(event, show) {
+    event.cancelBubble=true;
+    var threads = document.getElementsByName("thread");
+    var l = threads.length;
+    for ( var i = 0; i < l ; i++ ) {
+      showUL(threads[i], show);
+    }
+  }
+
+  function toggleHelp(node) {
+    var help = document.getElementById("help");
+    if (node.value == "Show Help") {
+      node.value = "Hide Help";
+      help.style.display = 'block';
+    }
+    else {
+      node.value = "Show Help";
+      help.style.display = 'none';
+    }
+  }
+
+  var selectedNode = null;
+  var selectedColor = null;
+  var selectedThread = null;
+
+  function descendentOf(a,b){
+    while (a!=b && b!=null)
+      b=b.parentNode;
+    return (a==b);
+  }
+
+  function moveSelectionIfNecessary(node){
+    if (descendentOf(node, selectedNode))
+      selectNode(node, null);
+  }
+
+  function selectNode(node, event) {
+    if (event) {
+      event.cancelBubble = true;
+      thread = findThread(node);
+      selectThread(thread);
+    }
+    if (selectedNode) {
+      selectedNode.style.background = selectedColor;
+    }
+    selectedNode = node;
+    selectedColor = node.style.background;
+    selectedNode.style.background = "red";
+    selectedNode.scrollIntoView();
+    window.scrollBy(0,-400);
+  }
+
+  function moveUp(){
+    move(selectedNode.previousSibling);
+  }
+
+  function moveDown(){
+    move(selectedNode.nextSibling);
+  }
+
+  function move(p) {
+    while (p && p.style.display == 'none')
+      p = p.nextSibling;
+    if (p && p.nodeName == "LI") {
+      selectNode(p, null);
+    }
+  }
+
+  function moveLeft(){
+    var p = selectedNode.parentNode.parentNode;
+    if (p && p.nodeName=="LI") {
+      selectNode(p, null);
+    }
+  }
+
+  function moveRight(){
+    if (!isLeafNode(selectedNode)) {
+      showChildren(selectedNode);
+      var ul = findUlChild(selectedNode);
+      if (ul) {
+        selectNode(ul.firstChild, null);
+      }
+    }
+  }
+
+  function moveForward(){
+    if (isLeafNode(selectedNode)) {
+      var p = selectedNode;
+      while ((p.nextSibling == null || p.nextSibling.style.display=='none') && p.nodeName=="LI") {
+        p = p.parentNode.parentNode;
+      }
+      if (p.nodeName=="LI")
+        selectNode(p.nextSibling, null);
+    }
+    else {
+      moveRight();
+    }
+  }
+
+  function isExpandedNode(li){
+    var img = li.firstChild;
+    return(img.className.indexOf('minus')>-1);
+  }
+
+  function moveBackward(){
+    var p = selectedNode;
+    var q = p.previousSibling;
+    while (q != null && q.style.display=='none')
+      q = q.previousSibling;
+    if (q == null) {
+      p = p.parentNode.parentNode;
+    } else {
+      while (!isLeafNode(q) && isExpandedNode(q)) {
+        q = findUlChild(q).lastChild;
+        while (q.style.display=='none')
+          q = q.previousSibling;
+      }
+      p = q;
+    }
+    if (p.nodeName=="LI")
+      selectNode(p, null);
+  }
+
+  function moveHome() {
+    selectNode(currentThread);
+  }
+
+  var currentThreadIndex = null;
+
+  function findThread(node){
+    while (node && !node.parentNode.nodeName.match(/BODY|DIV/g)) {
+      node = node.parentNode;
+    }
+    return node.firstChild;
+  }
+
+  function selectThread(node){
+    var threads = document.getElementsByName("thread");
+    currentThread = node;
+    for (var i=0; i<threads.length; i++) {
+      if (threads[i]==currentThread.parentNode)
+        currentThreadIndex = i;
+    }
+  }
+
+  function nextThread(){
+    var threads = document.getElementsByName("thread");
+    if (currentThreadIndex==threads.length-1)
+      currentThreadIndex = 0;
+    else
+      currentThreadIndex += 1
+    currentThread = threads[currentThreadIndex].firstChild;
+    selectNode(currentThread, null);
+  }
+
+  function previousThread(){
+    var threads = document.getElementsByName("thread");
+    if (currentThreadIndex==0)
+      currentThreadIndex = threads.length-1;
+    else
+      currentThreadIndex -= 1
+    currentThread = threads[currentThreadIndex].firstChild;
+    selectNode(currentThread, null);
+  }
+
+  function switchThread(node, event){
+    event.cancelBubble = true;
+    selectThread(node.nextSibling.firstChild);
+    selectNode(currentThread, null);
+  }
+
+  function handleKeyEvent(event){
+    var code = event.charCode ? event.charCode : event.keyCode;
+    var str = String.fromCharCode(code);
+    switch (str) {
+      case "a": moveLeft();  break;
+      case "s": moveDown();  break;
+      case "d": moveRight(); break;
+      case "w": moveUp();    break;
+      case "f": moveForward(); break;
+      case "b": moveBackward(); break;
+      case "x": toggleChildren(selectedNode.firstChild, event); break;
+      case "*": toggleLI(selectedNode); break;
+      case "n": nextThread(); break;
+      case "h": moveHome(); break;
+      case "p": previousThread(); break;
+    }
+  }
+  document.onkeypress=function(event){ handleKeyEvent(event) };
+
+  window.onload=function(){
+    var images = document.querySelectorAll(".toggle");
+    for (var i=0; i<images.length; i++) {
+      var img = images[i];
+        img.onclick = function(event){ toggleChildren(this, event); return false; };
+    }
+    var divs = document.getElementsByTagName("div");
+    for (i=0; i<divs.length; i++) {
+      var div = divs[i];
+      if (div.className == "thread")
+        div.onclick = function(event){ switchThread(this, event) };
+    }
+    var lis = document.getElementsByTagName("li");
+    for (var i=0; i<lis.length; i++) {
+      lis[i].onclick = function(event){ selectNode(this, event); };
+    }
+    var threads = document.getElementsByName("thread");;
+    currentThreadIndex = 0;
+    currentThread = threads[0].firstChild;
+    selectNode(currentThread, null);
+  };
+
+</script>
+</head><body><div style="display: inline-block;">
+<div id="titlebar">
+Call tree for application <b>/usr/local/bin/ruby-prof 25</b><br/>
+Generated on 2015-09-24 12:45:27 +0200 with options {:min_percent=&gt;0, :sort_method=&gt;nil}<br/>
+</div>
+<div id="commands">
+<span style="font-size: 11pt; font-weight: bold;">Threshold:</span>
+<input value="1.0" size="3" id="threshold" type="text">
+<input value="Apply" onclick="setThreshold();" type="submit">
+<input value="Expand All" onclick="expandAll(event);" type="submit">
+<input value="Collapse All" onclick="collapseAll(event);" type="submit">
+<input value="Show Help" onclick="toggleHelp(this);" type="submit">
+</div>
+<div style="display: none;" id="help">
+&#8226; Enter a decimal value <i>d</i> into the threshold field and click "Apply"
+        to hide all nodes marked with time values lower than <i>d</i>.<br>
+&#8226; Click on "Expand All" for full tree expansion.<br>
+&#8226; Click on "Collapse All" to show only top level nodes.<br>
+&#8226; Use a, s, d, w as in Quake or Urban Terror to navigate the tree.<br>
+&#8226; Use f and b to navigate the tree in preorder forward and backwards.<br>
+&#8226; Use x to toggle visibility of a subtree.<br>
+&#8226; Use * to expand/collapse a whole subtree.<br>
+&#8226; Use h to navigate to thread root.<br>
+&#8226; Use n and p to navigate between threads.<br>
+&#8226; Click on background to move focus to a subtree.<br>
+</div>
+<div class="thread">Thread: 70332249924100, Fiber: 70332267180740 (100.00% ~ 1.1440529823303223)</div><ul name="thread"><li class="color9" style="display:block"><a href="#" class="toggle minus" ></a><span> 100.00% (100.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/example/example1.rb&line=1">Global#[No method]</a> [1 calls, 2 total]</span>
+<ul><li class="color9" style="display:block"><a href="#" class="toggle minus" ></a><span> 99.51% (99.51%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb&line=54">Highbrow::Trainer::Base#train</a> [1 calls, 1 total]</span>
+<ul><li class="color7" style="display:block"><a href="#" class="toggle minus" ></a><span> 70.45% (70.80%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=93">Highbrow::Trainer::BackPropagation#epoch</a> [665 calls, 665 total]</span>
+<ul><li class="color6" style="display:block"><a href="#" class="toggle minus" ></a><span> 69.28% (98.33%) Array#each [665 calls, 101167 total]</span>
+<ul><li class="color4" style="display:block"><a href="#" class="toggle minus" ></a><span> 44.73% (64.56%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=64">Highbrow::Trainer::BackPropagation#propagate</a> [2660 calls, 2660 total]</span>
+<ul><li class="color4" style="display:block"><a href="#" class="toggle minus" ></a><span> 44.26% (98.94%) Array#each [2660 calls, 101167 total]</span>
+<ul><li class="color4" style="display:block"><a href="#" class="toggle minus" ></a><span> 42.44% (95.90%) Enumerable#each_with_index [5320 calls, 10646 total]</span>
+<ul><li class="color4" style="display:block"><a href="#" class="toggle minus" ></a><span> 42.05% (99.07%) Array#each [5320 calls, 101167 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 29.81% (70.90%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=47">Highbrow::Trainer::BackPropagation#update_weights</a> [15960 calls, 15960 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 27.19% (91.22%) Array#each [15960 calls, 101167 total]</span>
+<ul><li class="color01" style="display:block"><a href="#" class="toggle plus" ></a><span> 4.84% (17.79%) Hash#[]= [55860 calls, 55866 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.02% (21.15%) Kernel#hash [55860 calls, 156945 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle plus" ></a><span> 4.72% (17.37%) Hash#[] [55860 calls, 101080 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.02% (21.51%) Kernel#hash [55860 calls, 156945 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.56% (9.42%) Float#* [167580 calls, 272070 total]</span>
+</li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.15% (7.92%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=20">Highbrow::Connection#value</a> [55860 calls, 167706 total]</span>
+</li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.82% (6.68%) Float#+ [111720 calls, 224203 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.23% (4.12%) Hash#[] [15960 calls, 101080 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.32% (26.08%) Kernel#hash [15960 calls, 156945 total]</span>
+</li></ul></li></ul></li><li class="color05" style="display:block"><a href="#" class="toggle plus" ></a><span> 7.76% (18.46%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=37">Highbrow::Trainer::BackPropagation#propagate_hidden</a> [13300 calls, 13300 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle plus" ></a><span> 3.42% (44.08%) Array#each [13300 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.37% (40.12%) Hash#[] [13300 calls, 101080 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.31% (22.94%) Kernel#hash [13300 calls, 156945 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.42% (12.24%) Float#* [13300 calls, 272070 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.24% (6.99%) Float#+ [13300 calls, 224203 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.27% (16.31%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/function/tanh.rb&line=10">Highbrow::Function::Tanh#derivative</a> [13300 calls, 15960 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.26% (20.92%) Float#* [13300 calls, 272070 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.25% (19.99%) Float#- [13300 calls, 15981 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.08% (13.98%) Hash#[] [13300 calls, 101080 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.28% (25.75%) Kernel#hash [13300 calls, 156945 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.14%) Proc#yield [5 calls, 6 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (44.59%) Class#new [5 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (51.52%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=12">Highbrow::Trainer::BackPropagation::TrainingDataItem#initialize</a> [5 calls, 6 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (32.43%) Hash#[]= [5 calls, 55866 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (16.67%) Kernel#hash [5 calls, 156945 total]</span>
+</li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.20% (2.59%) Float#* [13300 calls, 272070 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.22% (2.90%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=31">Highbrow::Trainer::BackPropagation#propagate_output</a> [2660 calls, 2660 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.36% (29.54%) Hash#[] [2660 calls, 101080 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.09% (25.13%) Kernel#hash [2659 calls, 156945 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.34%) Proc#yield [1 calls, 6 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (49.15%) Hash#[]= [1 calls, 55866 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (27.59%) Kernel#hash [1 calls, 156945 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (20.34%) Class#new [1 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (66.67%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=12">Highbrow::Trainer::BackPropagation::TrainingDataItem#initialize</a> [1 calls, 6 total]</span>
+</li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.24% (20.04%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/function/tanh.rb&line=10">Highbrow::Function::Tanh#derivative</a> [2660 calls, 15960 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.05% (21.85%) Float#- [2660 calls, 15981 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.05% (19.08%) Float#* [2660 calls, 272070 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.04% (3.51%) Float#* [2660 calls, 272070 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.04% (3.51%) Fixnum#- [2660 calls, 10678 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.59% (1.40%) Array#last [15960 calls, 19293 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.29% (0.69%) BasicObject#== [15960 calls, 15960 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.04% (0.09%) Array#[] [2660 calls, 21306 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.54% (1.22%) Symbol#to_proc [5320 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.51% (1.14%) Array#reject [5320 calls, 5320 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.12% (0.27%) Array#[] [2660 calls, 21306 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.10% (0.22%) Array#reverse [2660 calls, 2660 total]</span>
+</li></ul></li><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 21.67% (31.28%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=13">Highbrow::Network::FeedForward#activate</a> [2660 calls, 5326 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 21.38% (98.68%) Array#each [2660 calls, 101167 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 21.02% (98.30%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=29">Highbrow::Layer#activate</a> [7980 calls, 15978 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 20.21% (96.14%) Array#each [7980 calls, 101167 total]</span>
+<ul><li class="color1" style="display:block"><a href="#" class="toggle minus" ></a><span> 19.15% (94.77%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=22">Highbrow::Neuron#activate</a> [26600 calls, 53260 total]</span>
+<ul><li class="color1" style="display:block"><a href="#" class="toggle minus" ></a><span> 14.11% (73.65%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=29">Highbrow::Neuron#inputs_sum</a> [15960 calls, 31956 total]</span>
+<ul><li class="color05" style="display:block"><a href="#" class="toggle plus" ></a><span> 8.40% (59.52%) Array#map [15960 calls, 34622 total]</span>
+<ul style="display:none"><li class="color05" style="display:block"><a href="#" class="toggle plus" ></a><span> 6.20% (73.88%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=24">Highbrow::Connection#weighed_value</a> [55860 calls, 111846 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.75% (28.17%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=20">Highbrow::Connection#value</a> [55860 calls, 167706 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.50% (8.05%) Float#* [29260 calls, 272070 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.42% (6.82%) Fixnum#* [26600 calls, 53906 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle plus" ></a><span> 3.51% (24.92%) Enumerable#reduce [15960 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.21% (62.79%) Array#each [15960 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.68% (30.62%) Float#+ [39900 calls, 224203 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.74% (5.23%) Symbol#to_proc [15960 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.17% (6.12%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/function/tanh.rb&line=6">Highbrow::Function::Tanh#primary</a> [15960 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.43% (36.30%) &lt;Module::Math&gt;#tanh [15960 calls, 31956 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.43% (2.24%) NilClass#nil? [26600 calls, 53260 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.42% (2.20%) Kernel#nil? [26600 calls, 53260 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.25% (1.19%) Symbol#to_proc [7980 calls, 67905 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.09% (0.39%) Symbol#to_proc [2660 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.54% (3.66%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=23">Highbrow::Network::FeedForward#input=</a> [2660 calls, 5326 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.97% (38.23%) Enumerable#each_with_index [2660 calls, 10646 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.43% (44.56%) Array#each [2660 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.10% (22.75%) Array#[] [5320 calls, 21306 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.58% (22.73%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=25">Highbrow::Layer#bias?</a> [2660 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.20% (35.14%) Symbol#to_proc [2660 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.14% (24.13%) Array#any? [2660 calls, 5327 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.19% (7.36%) Array#count [5320 calls, 11986 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.15% (6.03%) BasicObject#!= [2660 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.04% (29.07%) Fixnum#== [2660 calls, 5995 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.08% (3.01%) Array#first [2660 calls, 5326 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.05% (2.08%) Fixnum#- [2660 calls, 10678 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 1.00% (1.42%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=105">Highbrow::Trainer::BackPropagation#apply_batch_corrections</a> [665 calls, 665 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.71% (71.29%) Hash#each [665 calls, 665 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.19% (27.16%) Float#+ [13965 calls, 224203 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.20% (20.06%) Hash#clear [665 calls, 665 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.09% (0.13%) Array#shuffle [665 calls, 665 total]</span>
+</li></ul></li><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 27.81% (27.94%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb&line=36">Highbrow::Trainer::Base#squared_epoch_error</a> [666 calls, 666 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 27.57% (99.16%) Array#each [666 calls, 101167 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 27.08% (98.22%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb&line=22">Highbrow::Trainer::Base#squared_error</a> [2664 calls, 2664 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 22.26% (82.20%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=13">Highbrow::Network::FeedForward#activate</a> [2664 calls, 5326 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 21.71% (97.54%) Array#each [2664 calls, 101167 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 21.21% (97.66%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=29">Highbrow::Layer#activate</a> [7992 calls, 15978 total]</span>
+<ul><li class="color2" style="display:block"><a href="#" class="toggle minus" ></a><span> 20.17% (95.10%) Array#each [7992 calls, 101167 total]</span>
+<ul><li class="color1" style="display:block"><a href="#" class="toggle minus" ></a><span> 19.13% (94.86%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=22">Highbrow::Neuron#activate</a> [26640 calls, 53260 total]</span>
+<ul><li class="color1" style="display:block"><a href="#" class="toggle minus" ></a><span> 14.50% (75.81%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=29">Highbrow::Neuron#inputs_sum</a> [15984 calls, 31956 total]</span>
+<ul><li class="color05" style="display:block"><a href="#" class="toggle plus" ></a><span> 8.75% (60.36%) Array#map [15984 calls, 34622 total]</span>
+<ul style="display:none"><li class="color05" style="display:block"><a href="#" class="toggle plus" ></a><span> 6.52% (74.51%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=24">Highbrow::Connection#weighed_value</a> [55944 calls, 111846 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.97% (30.14%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=20">Highbrow::Connection#value</a> [55944 calls, 167706 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.50% (7.74%) Fixnum#* [26640 calls, 53906 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.47% (7.25%) Float#* [29304 calls, 272070 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle plus" ></a><span> 3.32% (22.91%) Enumerable#reduce [15984 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.17% (65.44%) Array#each [15984 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.61% (28.04%) Float#+ [39960 calls, 224203 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.73% (5.04%) Symbol#to_proc [15984 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.22% (6.40%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/function/tanh.rb&line=6">Highbrow::Function::Tanh#primary</a> [15984 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.44% (35.78%) &lt;Module::Math&gt;#tanh [15984 calls, 31956 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.45% (2.34%) Kernel#nil? [26640 calls, 53260 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.41% (2.13%) NilClass#nil? [26640 calls, 53260 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.25% (1.16%) Symbol#to_proc [7992 calls, 67905 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.31% (1.41%) Symbol#to_proc [2664 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 2.49% (9.20%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=23">Highbrow::Network::FeedForward#input=</a> [2664 calls, 5326 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.67% (26.93%) Enumerable#each_with_index [2664 calls, 10646 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.44% (66.05%) Array#each [2664 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.09% (19.58%) Array#[] [5328 calls, 21306 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.64% (25.81%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=25">Highbrow::Layer#bias?</a> [2664 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.27% (41.77%) Symbol#to_proc [2664 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.15% (24.02%) Array#any? [2664 calls, 5327 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.27% (10.64%) BasicObject#!= [2664 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.07% (26.49%) Fixnum#== [2664 calls, 5995 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.24% (9.72%) Array#count [5328 calls, 11986 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.09% (3.50%) Array#first [2664 calls, 5326 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.05% (2.10%) Fixnum#- [2664 calls, 10678 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.72% (2.65%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=18">Highbrow::Network::FeedForward#output</a> [2664 calls, 2666 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.17% (23.18%) Array#map [2664 calls, 34622 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.14% (19.30%) Symbol#to_proc [2664 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.11% (15.99%) Array#last [2664 calls, 19293 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.60% (2.21%) Array#each [2664 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.14% (22.96%) Float#+ [2664 calls, 224203 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.10% (16.73%) Float#** [2664 calls, 2664 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.06% (9.38%) Fixnum#- [2664 calls, 10678 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.17% (0.64%) Array#zip [2664 calls, 2665 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.11% (0.40%) Array#[] [5328 calls, 21306 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.23% (0.83%) Float#+ [2664 calls, 224203 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.04% (0.14%) Array#count [1332 calls, 11986 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.03% (0.09%) Array#last [666 calls, 19293 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (0.07%) Float#/ [666 calls, 1331 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.04%) Fixnum#* [666 calls, 53906 total]</span>
+</li></ul></li><li class="color01" style="display:block"><a href="#" class="toggle empty" ></a><span> 1.03% (1.03%) Array#each [1332 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.51% (49.45%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=14">Highbrow::Plugin::Monitor#post_epoch</a> [665 calls, 665 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.40% (77.81%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=29">Highbrow::Plugin::Monitor#show</a> [27 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.20% (50.46%) Kernel#printf [216 calls, 224 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.08% (40.13%) IO#write [216 calls, 286 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.12% (29.52%) Kernel#puts [27 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.11% (97.02%) IO#puts [27 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.10% (90.02%) IO#write [54 calls, 286 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (3.48%) Time#- [27 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (61.42%) Numeric#quo [27 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (19.95%) Fixnum#fdiv [27 calls, 28 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (6.81%) Fixnum#- [27 calls, 10678 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (3.25%) &lt;Class::Time&gt;#now [27 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (42.72%) Time#initialize [27 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (22.73%) Fixnum#+ [27 calls, 694 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (2.94%) String#* [27 calls, 28 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (3.34%) Fixnum#% [665 calls, 665 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (3.12%) Fixnum#+ [665 calls, 694 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (2.53%) Fixnum#== [665 calls, 5995 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.30% (28.70%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb&line=23">Highbrow::Plugin::SmartLearningRate#post_epoch</a> [665 calls, 665 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.13% (42.87%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb&line=45">Highbrow::Plugin::SmartLearningRate#adjust_rate</a> [664 calls, 664 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (13.22%) Float#* [664 calls, 272070 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (12.07%) Float#&lt;= [664 calls, 664 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (7.53%) Float#&gt; [664 calls, 1994 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (6.66%) Float#&lt; [663 calls, 663 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.02% (6.16%) Float#&gt; [664 calls, 1994 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (4.67%) Float#/ [664 calls, 1331 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.03% (2.77%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=10">Highbrow::Plugin::Monitor#pre_epoch</a> [665 calls, 665 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.03% (2.63%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb&line=14">Highbrow::Plugin::SmartLearningRate#pre_epoch</a> [665 calls, 665 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.83%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=23">Highbrow::Plugin::Monitor#post_train</a> [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (93.92%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=29">Highbrow::Plugin::Monitor#show</a> [1 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (52.59%) Kernel#printf [8 calls, 224 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (45.32%) IO#write [8 calls, 286 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (25.13%) Kernel#puts [1 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (90.72%) IO#puts [1 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (90.91%) IO#write [2 calls, 286 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (5.44%) &lt;Class::Time&gt;#now [1 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (57.14%) Time#initialize [1 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (33.33%) Fixnum#+ [1 calls, 694 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (5.44%) Time#- [1 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (38.10%) Numeric#quo [1 calls, 28 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) Fixnum#fdiv [1 calls, 28 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (19.05%) Fixnum#- [1 calls, 10678 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (2.07%) String#* [1 calls, 28 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.95%) BasicObject#!= [1 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) Fixnum#== [1 calls, 5995 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.08%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=19">Highbrow::Plugin::Monitor#pre_train</a> [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (65.79%) &lt;Class::Time&gt;#now [1 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (68.00%) Time#initialize [1 calls, 29 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.53%) Fixnum#+ [1 calls, 694 total]</span>
+</li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.03%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb&line=19">Highbrow::Plugin::Base#post_train</a> [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.02%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb&line=16">Highbrow::Plugin::Base#pre_train</a> [1 calls, 1 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.06% (0.06%) Symbol#to_proc [1332 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.01%) Float#&gt; [666 calls, 1994 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.44% (0.44%) Kernel#require_relative [1 calls, 14 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.43% (97.06%) Kernel#require_relative [13 calls, 14 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.06% (13.36%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb&line=38">Kernel#require</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.05% (90.64%) Kernel#gem_original_require [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.69%) Module#attr_accessor [1 calls, 13 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (28.57%) BasicObject#singleton_method_added [2 calls, 4 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.69%) IO#set_encoding [2 calls, 32 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.52%) &lt;Class::Regexp&gt;#quote [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.48%) Module#method_added [12 calls, 117 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (2.74%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb&line=1118">&lt;Module::Gem&gt;#find_unresolved_default_spec</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (61.33%) Array#each [2 calls, 101167 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (17.33%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems.rb&line=889">&lt;Module::Gem&gt;#suffixes</a> [2 calls, 2 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.97%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb&line=183">MonitorMixin#mon_enter</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (16.67%) Mutex#lock [2 calls, 2 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (14.81%) &lt;Class::Thread&gt;#current [4 calls, 6 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.54%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb&line=194">MonitorMixin#mon_exit</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (40.48%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb&line=244">MonitorMixin#mon_check_owner</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.53%) &lt;Class::Thread&gt;#current [2 calls, 6 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (9.52%) Mutex#unlock [2 calls, 2 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.62%) Kernel#respond_to? [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (52.94%) Kernel#respond_to_missing? [2 calls, 23 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.48%) <a href="txmt://open?url=file:///Users/hexio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/rubygems/specification.rb&line=1168">&lt;Class::Gem::Specification&gt;#unresolved_deps</a> [2 calls, 2 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.13%) Module#attr_accessor [12 calls, 13 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (7.36%) Module#method_added [24 calls, 117 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.78%) IO#set_encoding [26 calls, 32 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.60%) Module#attr_reader [10 calls, 10 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (26.83%) Module#method_added [10 calls, 117 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.45%) Module#method_added [70 calls, 117 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.17%) Kernel#extend [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (73.53%) Module#extend_object [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (14.71%) Module#extended [1 calls, 1 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.16%) Class#inherited [14 calls, 14 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.06%) Module#private [3 calls, 3 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.06%) Module#alias_method [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (33.33%) Module#method_added [1 calls, 117 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.04%) BasicObject#singleton_method_added [2 calls, 4 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.09%) IO#set_encoding [2 calls, 32 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.01%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=13">Highbrow::Network::FeedForward#activate</a> [2 calls, 5326 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (98.13%) Array#each [2 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (98.10%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=29">Highbrow::Layer#activate</a> [6 calls, 15978 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (94.93%) Array#each [6 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (94.82%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=22">Highbrow::Neuron#activate</a> [20 calls, 53260 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (71.85%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=29">Highbrow::Neuron#inputs_sum</a> [12 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (58.76%) Array#map [12 calls, 34622 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (80.39%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=24">Highbrow::Connection#weighed_value</a> [42 calls, 111846 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (32.20%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=20">Highbrow::Connection#value</a> [42 calls, 167706 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (11.22%) Float#* [42 calls, 272070 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (25.58%) Enumerable#reduce [12 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (57.66%) Array#each [12 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (54.69%) Float#+ [30 calls, 224203 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (6.91%) Symbol#to_proc [12 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (6.13%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/function/tanh.rb&line=6">Highbrow::Function::Tanh#primary</a> [12 calls, 31956 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (56.76%) &lt;Module::Math&gt;#tanh [12 calls, 31956 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (3.97%) NilClass#nil? [20 calls, 53260 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (2.81%) Kernel#nil? [20 calls, 53260 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.19%) Symbol#to_proc [6 calls, 67905 total]</span>
+</li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.01%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=63">Highbrow::Network::FeedForward#finalize!</a> [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (82.77%) Array#each [1 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (96.80%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=33">&lt;Class::Highbrow::Layer&gt;#interconnect</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (97.06%) Array#each [2 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (96.97%) Array#each [9 calls, 101167 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (88.67%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=28">&lt;Class::Highbrow::Connection&gt;#interconnect</a> [21 calls, 21 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (69.16%) Class#new [21 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (81.85%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=8">Highbrow::Connection#initialize</a> [21 calls, 21 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (75.49%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/connection.rb&line=14">Highbrow::Connection#randomize</a> [21 calls, 21 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (37.11%) Kernel#rand [21 calls, 21 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.61%) Kernel#respond_to_missing? [21 calls, 23 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (15.46%) Float#- [21 calls, 15981 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (13.40%) Fixnum#/ [21 calls, 21 total]</span>
+</li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (7.05%) Array#push [42 calls, 58 total]</span>
+</li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (6.19%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=25">Highbrow::Layer#bias?</a> [1 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) Symbol#to_proc [1 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (9.52%) Array#any? [1 calls, 5327 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (3.09%) Array#count [1 calls, 11986 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.91%) Array#zip [1 calls, 2665 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (1.18%) Array#[] [2 calls, 21306 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.59%) Fixnum#&lt; [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.59%) Array#last [1 calls, 19293 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.01% (0.01%) Class#new [7 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (52.28%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=9">Highbrow::Layer#initialize</a> [3 calls, 3 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (68.93%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=15">Highbrow::Layer#create_neurons</a> [3 calls, 3 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (82.39%) Integer#times [3 calls, 3 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (64.10%) Class#new [8 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (60.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=12">Highbrow::Neuron#initialize</a> [8 calls, 10 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (3.42%) Array#push [8 calls, 58 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (5.63%) Fixnum#== [3 calls, 5995 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (12.62%) Class#new [2 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/neuron.rb&line=12">Highbrow::Neuron#initialize</a> [2 calls, 10 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (3.88%) Array#push [2 calls, 58 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (20.30%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/backpropagation.rb&line=20">Highbrow::Trainer::BackPropagation#initialize</a> [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (21.25%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb&line=12">Highbrow::Trainer::Base#initialize</a> [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (20.00%) Hash#default_proc= [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (25.00%) Proc#to_proc [1 calls, 1 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (11.25%) Kernel#proc [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (10.00%) Class#new [1 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) Hash#initialize [1 calls, 1 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (6.35%) Class#new [2 calls, 47 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (16.00%) BasicObject#initialize [2 calls, 2 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (4.31%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb&line=5">Highbrow::Plugin::SmartLearningRate#initialize</a> [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (2.28%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=7">Highbrow::Network::FeedForward#initialize</a> [1 calls, 1 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (2.03%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/monitor.rb&line=5">Highbrow::Plugin::Monitor#initialize</a> [1 calls, 1 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) Kernel#puts [3 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (85.57%) IO#puts [3 calls, 31 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (43.60%) IO#write [6 calls, 286 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (39.53%) Float#to_s [2 calls, 2 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=23">Highbrow::Network::FeedForward#input=</a> [2 calls, 5326 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.81%) Enumerable#each_with_index [2 calls, 10646 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (80.00%) Array#each [2 calls, 101167 total]</span>
+<ul style="display:none"></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.81%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/layer.rb&line=25">Highbrow::Layer#bias?</a> [2 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (64.00%) Symbol#to_proc [2 calls, 67905 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (20.00%) Array#any? [2 calls, 5327 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (8.57%) Array#first [2 calls, 5326 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (7.62%) Array#count [4 calls, 11986 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (7.62%) BasicObject#!= [2 calls, 5327 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (50.00%) Fixnum#== [2 calls, 5995 total]</span>
+</li></ul></li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/trainer/base.rb&line=48">Highbrow::Trainer::Base#plug</a> [2 calls, 2 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (36.96%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/smart_learning_rate.rb&line=10">Highbrow::Plugin::SmartLearningRate#init</a> [1 calls, 1 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (23.53%) Float#/ [1 calls, 1331 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (8.70%) Array#push [2 calls, 58 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (8.70%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/plugin/base.rb&line=7">Highbrow::Plugin::Base#init</a> [1 calls, 1 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/lib/highbrow/network/feedforward.rb&line=18">Highbrow::Network::FeedForward#output</a> [2 calls, 2666 total]</span>
+<ul style="display:none"><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (30.00%) Array#last [2 calls, 19293 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (26.67%) Array#map [2 calls, 34622 total]</span>
+</li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (13.33%) Symbol#to_proc [2 calls, 67905 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) Array#push [4 calls, 58 total]</span>
+</li></ul></li><li class="color01" style="display:none"><a href="#" class="toggle empty" ></a><span> 0.00% (0.00%) <a href="txmt://open?url=file:///Users/hexio/projects/ruby/highbrow/example/example1.rb&line=1">Global#[No method]</a> [1 calls, 2 total]</span>
+</li></ul><div id="sentinel"></div></div></body></html>
