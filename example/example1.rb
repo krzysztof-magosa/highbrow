@@ -9,25 +9,18 @@ xor_truth = [
 
 store_file = '/tmp/example1.yaml'
 store = Highbrow::IO::Store.new
-net = store.load store_file
-net.input = [0, 1]
-net.activate
-puts net.output
-
-exit
-
-if File.exists? store_file
+if File.exist? store_file
   net = store.load store_file
 else
-  net = Highbrow::Network::FeedForward.new
-  net.layers.push Highbrow::Layer.new(neurons: 2, bias: true, function: nil)
-  net.layers.push Highbrow::Layer.new(neurons: 3, bias: true, function: Highbrow::Function::Sigmoid.new)
-  net.layers.push Highbrow::Layer.new(neurons: 1, function: Highbrow::Function::Sigmoid.new)
+  net = Highbrow::Neural::Network::FeedForward.new
+  net.layers.push Highbrow::Neural::Layer.new(neurons: 2, bias: true, function: nil)
+  net.layers.push Highbrow::Neural::Layer.new(neurons: 3, bias: true, function: Highbrow::Neural::Activation::Sigmoid.new)
+  net.layers.push Highbrow::Neural::Layer.new(neurons: 1, function: Highbrow::Neural::Activation::Sigmoid.new)
   net.finalize!
 
-  bp = Highbrow::Trainer::BackPropagation.new net
-  bp.plug(Highbrow::Plugin::SmartLearningRate.new)
-  bp.plug(Highbrow::Plugin::Monitor.new)
+  bp = Highbrow::Neural::Trainer::BackPropagation.new net
+  bp.plug(Highbrow::Neural::Trainer::Plugin::SmartLearningRate.new)
+  bp.plug(Highbrow::Neural::Trainer::Plugin::Monitor.new)
   bp.training_set.push(*xor_truth)
   bp.momentum = 0.7
   bp.learning_rate = 0.25

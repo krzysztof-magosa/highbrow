@@ -5,7 +5,7 @@ module Highbrow
         # IO Strategy for FeedForward network
         class FeedForward
           def self.supported_classes
-            [Highbrow::Network::FeedForward.name]
+            [Highbrow::Neural::Network::FeedForward.name]
           end
 
           def self.version
