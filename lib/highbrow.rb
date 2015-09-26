@@ -12,3 +12,4 @@ require_relative 'highbrow/neural/trainer/back_propagation'
 
 require_relative 'highbrow/neural/trainer/plugin/base'
 require_relative 'highbrow/neural/trainer/plugin/smart_learning_rate'
+require_relative 'highbrow/neural/trainer/plugin/monitor'
