@@ -4,20 +4,16 @@ module Highbrow
     class Layer
       attr_reader :neurons
 
-      def initialize(neurons:, bias: false, function: Activation::Tanh.new)
+      def initialize(neurons:, bias: false, activation: Activation::Tanh.new)
         @neurons = []
-        create_neurons neurons, function
+        create_neurons neurons, activation
         @neurons.push Highbrow::Neural::Neuron.new(bias: true) if bias
       end
 
-      def self.from_parameters(_parameters)
-        new(neurons: 0, bias: false, function: nil)
-      end
-
-      def create_neurons(count, function)
+      def create_neurons(count, activation)
         count.times do
           item = Highbrow::Neural::Neuron.new
-          item.function = function
+          item.activation = activation
           @neurons.push item
         end
       end

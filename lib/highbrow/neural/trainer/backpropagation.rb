@@ -35,7 +35,7 @@ module Highbrow
 
         def propagate_output(neuron, ideal)
           error = (ideal - neuron.output) # * significance
-          derivative = neuron.function.derivative neuron.output
+          derivative = neuron.activation.derivative neuron.output
 
           @training_data[neuron].delta = error * derivative
         end
@@ -47,7 +47,7 @@ module Highbrow
             sum += conn.weight * @training_data[conn.target].delta
           end
 
-          @training_data[neuron].delta = neuron.function.derivative(neuron.output) * sum
+          @training_data[neuron].delta = neuron.activation.derivative(neuron.output) * sum
         end
 
         def update_weights(neuron)

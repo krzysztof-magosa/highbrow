@@ -1,5 +1,8 @@
 require_relative '../lib/highbrow.rb'
 
+Neural = Highbrow::Neural
+knowledge_file = File.dirname(__FILE__) + '/example1.yaml'
+
 xor_truth = [
   [[0, 0], [0]],
   [[1, 0], [1]],
@@ -7,15 +10,25 @@ xor_truth = [
   [[1, 1], [0]]
 ]
 
-store_file = '/tmp/example1.yaml'
 store = Highbrow::IO::Store.new
-if File.exist? store_file
-  net = store.load store_file
+if File.exist? knowledge_file
+  net = store.load knowledge_file
 else
   net = Highbrow::Neural::Network::FeedForward.new
-  net.layers.push Highbrow::Neural::Layer.new(neurons: 2, bias: true, function: nil)
-  net.layers.push Highbrow::Neural::Layer.new(neurons: 3, bias: true, function: Highbrow::Neural::Activation::Sigmoid.new)
-  net.layers.push Highbrow::Neural::Layer.new(neurons: 1, function: Highbrow::Neural::Activation::Sigmoid.new)
+  net.layers.push Highbrow::Neural::Layer.new(
+    neurons: 2,
+    bias: true,
+    activation: nil
+  )
+  net.layers.push Highbrow::Neural::Layer.new(
+    neurons: 3,
+    bias: true,
+    activation: Highbrow::Neural::Activation::Sigmoid.new
+  )
+  net.layers.push Highbrow::Neural::Layer.new(
+    neurons: 1,
+    activation: Highbrow::Neural::Activation::Sigmoid.new
+  )
   net.finalize!
 
   bp = Highbrow::Neural::Trainer::BackPropagation.new net
@@ -27,7 +40,7 @@ else
   bp.goal = 0.00001
   bp.train
 
-  store.save net, store_file
+  store.save net, knowledge_file
 end
 
 net.input = [1.0, 1.0]

@@ -7,11 +7,11 @@ module Highbrow
       attr_reader :inputs
       attr_reader :bias
       alias_method :bias?, :bias
-      attr_accessor :function
+      attr_accessor :activation
       attr_reader :outputs
       attr_reader :output
 
-      def initialize(bias: false, function: nil)
+      def initialize(bias: false, activation: nil)
         @inputs = []
         @outputs = []
         @output = 0.0
@@ -19,12 +19,12 @@ module Highbrow
         @bias = bias
         # @input = 0.5 + (rand(1000) / 2000.0) if bias
         @input = 1.0 if bias
-        @function = function
+        @activation = activation
       end
 
       def activate
         value = @input.nil? ? inputs_sum : @input.to_f
-        @output = @function.nil? ? value : @function.primary(value)
+        @output = @activation.nil? ? value : @activation.primary(value)
       end
 
       def parameters

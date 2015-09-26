@@ -1,0 +1,139 @@
+---
+:meta:
+  :version: 1
+  :system:
+    :highbrow: 0.1.0
+    :ruby: 2.2.3
+  :io_strategy: Highbrow::IO::Strategy::Neural::FeedForward
+  :object: Highbrow::Neural::Network::FeedForward
+  :timestamp: 1443278543
+:data:
+  :meta:
+    :version: 1
+  :data: !ruby/object:Highbrow::Neural::Network::FeedForward
+    layers:
+    - !ruby/object:Highbrow::Neural::Layer
+      neurons:
+      - &1 !ruby/object:Highbrow::Neural::Neuron
+        inputs: []
+        outputs:
+        - &2 !ruby/object:Highbrow::Neural::Connection
+          source: *1
+          target: &8 !ruby/object:Highbrow::Neural::Neuron
+            inputs:
+            - *2
+            - &3 !ruby/object:Highbrow::Neural::Connection
+              source: &4 !ruby/object:Highbrow::Neural::Neuron
+                inputs: []
+                outputs:
+                - *3
+                - &6 !ruby/object:Highbrow::Neural::Connection
+                  source: *4
+                  target: &5 !ruby/object:Highbrow::Neural::Neuron
+                    inputs:
+                    - &20 !ruby/object:Highbrow::Neural::Connection
+                      source: *1
+                      target: *5
+                      weight: 3.37705872299487
+                    - *6
+                    - &9 !ruby/object:Highbrow::Neural::Connection
+                      source: &7 !ruby/object:Highbrow::Neural::Neuron
+                        inputs: []
+                        outputs:
+                        - &18 !ruby/object:Highbrow::Neural::Connection
+                          source: *7
+                          target: *8
+                          weight: -1.6853674366228057
+                        - *9
+                        - &11 !ruby/object:Highbrow::Neural::Connection
+                          source: *7
+                          target: &10 !ruby/object:Highbrow::Neural::Neuron
+                            inputs:
+                            - &21 !ruby/object:Highbrow::Neural::Connection
+                              source: *1
+                              target: *10
+                              weight: -9.41439137244758
+                            - &17 !ruby/object:Highbrow::Neural::Connection
+                              source: *4
+                              target: *10
+                              weight: 7.589281839989508
+                            - *11
+                            outputs:
+                            - &13 !ruby/object:Highbrow::Neural::Connection
+                              source: *10
+                              target: &12 !ruby/object:Highbrow::Neural::Neuron
+                                inputs:
+                                - &19 !ruby/object:Highbrow::Neural::Connection
+                                  source: *8
+                                  target: *12
+                                  weight: 12.78829533137064
+                                - &15 !ruby/object:Highbrow::Neural::Connection
+                                  source: *5
+                                  target: *12
+                                  weight: 11.445376340249622
+                                - *13
+                                - &14 !ruby/object:Highbrow::Neural::Connection
+                                  source: &22 !ruby/object:Highbrow::Neural::Neuron
+                                    inputs: []
+                                    outputs:
+                                    - *14
+                                    output: 1.0
+                                    bias: true
+                                    activation: 
+                                    input: 1.0
+                                  target: *12
+                                  weight: -5.468230534879185
+                                outputs: []
+                                output: 0.004259554524613085
+                                bias: false
+                                activation: !ruby/object:Highbrow::Neural::Activation::Sigmoid
+                                  slope: 1.0
+                              weight: -11.71661333076788
+                            output: 0.9823476543768765
+                            bias: false
+                            activation: &16 !ruby/object:Highbrow::Neural::Activation::Sigmoid
+                              slope: 1.0
+                          weight: 5.844186133976591
+                        output: 1.0
+                        bias: true
+                        activation: 
+                        input: 1.0
+                      target: *5
+                      weight: 0.8509208218550728
+                    outputs:
+                    - *15
+                    output: 0.9992597086506145
+                    bias: false
+                    activation: *16
+                  weight: 2.9797466235155996
+                - *17
+                output: 1.0
+                bias: false
+                activation: 
+                input: 1
+              target: *8
+              weight: 4.625680739128261
+            - *18
+            outputs:
+            - *19
+            output: 0.00678688477326756
+            bias: false
+            activation: *16
+          weight: -7.926266521060476
+        - *20
+        - *21
+        output: 1.0
+        bias: false
+        activation: 
+        input: 1
+      - *4
+      - *7
+    - !ruby/object:Highbrow::Neural::Layer
+      neurons:
+      - *8
+      - *5
+      - *10
+      - *22
+    - !ruby/object:Highbrow::Neural::Layer
+      neurons:
+      - *12
