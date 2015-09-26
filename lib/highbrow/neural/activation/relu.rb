@@ -5,7 +5,7 @@ module Highbrow
       # https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
       class ReLU < Base
         def primary(input)
-          [0, input].max
+          [0.0, input].max
         end
 
         def derivative(output)

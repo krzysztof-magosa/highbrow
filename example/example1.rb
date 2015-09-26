@@ -21,13 +21,13 @@ else
     activation: nil
   )
   net.layers.push Highbrow::Neural::Layer.new(
-    neurons: 3,
+    neurons: 2,
     bias: true,
-    activation: Highbrow::Neural::Activation::Sigmoid.new
+    activation: Highbrow::Neural::Activation::Softplus.new
   )
   net.layers.push Highbrow::Neural::Layer.new(
     neurons: 1,
-    activation: Highbrow::Neural::Activation::Sigmoid.new
+    activation: Highbrow::Neural::Activation::Softplus.new
   )
   net.finalize!
 
@@ -37,7 +37,7 @@ else
   bp.training_set.push(*xor_truth)
   bp.momentum = 0.7
   bp.learning_rate = 0.25
-  bp.goal = 0.00001
+  bp.goal = 0.01
   bp.train
 
   store.save net, knowledge_file
