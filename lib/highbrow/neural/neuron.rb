@@ -2,7 +2,6 @@ module Highbrow
   module Neural
     # Represents standard neuron
     class Neuron
-      attr_reader :serial
       attr_accessor :input
       attr_reader :inputs
       attr_reader :bias

@@ -11,7 +11,7 @@ require_relative 'highbrow/neural/activation/softplus'
 require_relative 'highbrow/neural/network/feed_forward'
 
 require_relative 'highbrow/neural/trainer/base'
-require_relative 'highbrow/neural/trainer/backpropagation'
+require_relative 'highbrow/neural/trainer/back_propagation'
 
 require_relative 'highbrow/neural/trainer/plugin/base'
 require_relative 'highbrow/neural/trainer/plugin/smart_learning_rate'

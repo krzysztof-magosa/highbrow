@@ -1,10 +1,9 @@
 module Highbrow
   module IO
-    # x
+    # Dumps, parses, loads and saves Highbrow objects
     class Store
       def initialize
         @strategies = {}
-
         register_builtin_strategies
       end
 
@@ -14,7 +13,6 @@ module Highbrow
 
       def dump(object)
         fail unless @strategies.key? object.class.name
-
         strategy = Object.const_get(@strategies[object.class.name]).new
 
         {

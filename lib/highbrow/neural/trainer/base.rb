@@ -4,7 +4,7 @@ module Highbrow
       # Represents base trainer
       class Base
         attr_reader :network
-        attr_accessor :training_set
+        attr_reader :training_set
         attr_accessor :learning_rate
         attr_accessor :momentum
         attr_reader :last_epoch_error
@@ -56,8 +56,6 @@ module Highbrow
         end
 
         def train
-          prepare
-
           squared_epoch_error
           @plugins.each(&:pre_train)
 
@@ -73,9 +71,6 @@ module Highbrow
 
         def epoch
           fail 'This method must be implemented in child class.'
-        end
-
-        def prepare
         end
       end
     end

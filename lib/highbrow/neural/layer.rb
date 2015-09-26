@@ -6,16 +6,14 @@ module Highbrow
 
       def initialize(neurons:, bias: false, activation: Activation::Tanh.new)
         @neurons = []
-        create_neurons neurons, activation
-        @neurons.push Highbrow::Neural::Neuron.new(bias: true) if bias
-      end
 
-      def create_neurons(count, activation)
-        count.times do
-          item = Highbrow::Neural::Neuron.new
+        neurons.times do
+          item = Neuron.new
           item.activation = activation
           @neurons.push item
         end
+
+        @neurons.push Neuron.new(bias: true) if bias
       end
 
       def bias?
