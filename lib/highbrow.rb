@@ -11,3 +11,5 @@ require_relative 'highbrow/neural/network/feed_forward'
 
 require_relative 'highbrow/neural/trainer/base'
 require_relative 'highbrow/neural/trainer/back_propagation'
+
+require_relative 'highbrow/neural/trainer/plugin/base'
