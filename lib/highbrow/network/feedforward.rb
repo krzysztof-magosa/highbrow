@@ -1,4 +1,5 @@
-require 'json'
+require 'yaml'
+require 'yaml/store'
 
 module Highbrow
   module Network
@@ -70,6 +71,18 @@ module Highbrow
         @layers[0...-1].zip(@layers[1..-1]).each do |pair|
           Layer.interconnect pair[0], pair[1]
         end
+      end
+
+      def save(path)
+        store = YAML::Store.new path
+        store.transaction do
+          store[:network] = self
+        end
+      end
+
+      def self.load(path)
+        data = YAML.load_file path
+        data[:network]
       end
     end
   end

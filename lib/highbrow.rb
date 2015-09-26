@@ -19,4 +19,5 @@ require_relative 'highbrow/plugin/monitor'
 
 require_relative 'highbrow/neuron'
 
-require_relative 'highbrow/io/network'
+require_relative 'highbrow/io/store'
+require_relative 'highbrow/io/strategy/neural/feed_forward'
