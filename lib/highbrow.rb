@@ -15,3 +15,4 @@ require_relative 'highbrow/neural/trainer/plugin/smart_learning_rate'
 require_relative 'highbrow/neural/trainer/plugin/monitor'
 
 require_relative 'highbrow/io/store'
+require_relative 'highbrow/io/strategy/neural/network/feed_forward'
