@@ -7,8 +7,14 @@ module Highbrow
       attr_accessor :weight
 
       def initialize(source, target)
+        fail if target.bias?
+
         @source = source
         @target = target
+
+        @source.outputs.push self
+        @target.inputs.push self unless target.bias?
+
         randomize
       end
 
@@ -24,28 +30,6 @@ module Highbrow
 
       def weighed_value
         value * @weight
-      end
-
-      def parameters
-        {
-          source: @source,
-          target: @target,
-          weight: @weight
-        }
-      end
-
-      def self.from_parameters(parameters)
-        instance = interconnect parameters[:source], parameters[:target]
-        instance.weight = parameters[:weight]
-        instance
-      end
-
-      def self.interconnect(source, target)
-        connection = new source, target
-        source.outputs.push connection
-        target.inputs.push connection unless target.bias?
-
-        connection
       end
     end
   end

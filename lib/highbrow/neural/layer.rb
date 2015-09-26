@@ -31,7 +31,7 @@ module Highbrow
         source.neurons.each do |sn|
           target.neurons.each do |tn|
             next if tn.bias?
-            Connection.interconnect sn, tn
+            Connection.new sn, tn
           end
         end
       end

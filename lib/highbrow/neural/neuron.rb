@@ -27,23 +27,6 @@ module Highbrow
         @output = @activation.nil? ? value : @activation.primary(value)
       end
 
-      def parameters
-        {
-          bias: @bias,
-          input: @input,
-          function: @function
-        }
-      end
-
-      def self.from_parameters(parameters)
-        instance = new
-        instance.instance_variable_set(:@bias, parameters[:bias])
-        instance.instance_variable_set(:@input, parameters[:input])
-        instance.instance_variable_set(:@function, parameters[:function])
-
-        instance
-      end
-
       private
 
       def inputs_sum
